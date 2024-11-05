@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content-wrapper-scroll">
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Filter Orders</div>
+                        <form class="row g-3">
+                            <!-- Date Range Filter -->
+                            <div class="col-md-4">
+                                <label for="startDate" class="form-label">Order Date</label>
+                                <input type="text" class="form-control custom-daterange2" name="order_date">
+                            </div>
+                            
+                            <!-- Order Status Filter -->
+                            <div class="col-md-4">
+                                <label for="status" class="form-label">Order Status</label>
+                                <select class="form-select" id="status" name="status">
+                                    <option value="all" selected>All Orders</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+
+                            <!-- Rider Filter -->
+                            <div class="col-md-4">
+                                <label for="rider" class="form-label">Rider</label>
+                                <select class="form-select" id="rider" name="rider">
+                                    <option value="all" selected>All Riders</option>
+                                    <option value="rider1">Rider 1</option>
+                                    <option value="rider2">Rider 2</option>
+                                    <!-- Add more riders as needed -->
+                                </select>
+                            </div>
+
+                            <!-- Customer Filter -->
+                            <div class="col-md-4">
+                                <label for="customer" class="form-label">Customer</label>
+                                <select class="form-select" id="customer" name="customer">
+                                    <option value="all" selected>All Customers</option>
+                                    <!-- Add more customers as needed -->
+                                </select>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="col-md-4 align-self-end">
+                                <button type="submit" class="btn btn-primary w-100">Generate Report</button>
+                            </div>
+                        </form>
+                    </div> 
+                </div>
+            </div>
+            
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Orders</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="customerTable" class="customerTable table v-middle">
+                                <thead>
+                                    <tr>
+                                        <th>OrderID</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Order Type</th>
+                                        <th>Ordered Placed</th>
+                                        <th>Order Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <td>
+                                            <div class="media-box">
+                                                <div class="media-box-body">
+                                                    <div class="text-truncate">{{ order.id }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{ order.from }}</td>
+                                        <td>{{ order.to }}</td>
+                                        <td>{{ order.description }}</td>
+                                        <td>{{ order.amount }}</td>
+                                        <td>{{ order.order_type }}</td>
+                                        <td>{{ order.ordered_placed }}</td>
+                                        <td>
+                                            <span class="badge shade-{{ order.status_color }}">{{ order.status }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="actions">
+                                                <a href="#" class="viewRow" data-bs-toggle="modal" data-bs-target="#modalDark"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Complete Order">
+                                                    <i class="bi bi-send-check-fill text-green"></i>
+                                                </a>
+                                                <a href="#" class="viewRow" data-bs-toggle="modal" data-bs-target="#modalReason"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Cancel Order">
+                                                    <i class="bi bi-x-octagon-fill text-red"></i>
+                                                </a>
+                                                <a href="#" class="viewRow" data-bs-toggle="modal" data-bs-target="#scrollable"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
+                                                    <i class="bi bi-list text-dark"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    {% include 'modals.html' %}
+    
+{% endblock %}

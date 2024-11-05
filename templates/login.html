@@ -1,0 +1,87 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Meta -->
+    <meta name="description" content="Arise - Responsive Bootstrap 5 Dashboard Template">
+    <meta name="author" content="Bootstrap Gallery">
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.svg' %}">
+
+    <!-- Title -->
+    <title>Pariti Delivery Service - Login</title>
+
+    <!-- Common CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/bootstrap/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/main.min.css' %}">
+
+    <style>
+        input:autofill,
+        input:autofill:hover {
+            -webkit-text-fill-color: none;
+            box-shadow: none;
+        }
+
+        .login-container {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="login-container">
+
+    <!-- Login box start -->
+    <form method="post" action="{% url 'dashboard:index' %}">
+        {% csrf_token %}
+        <div class="login-box">
+            <div class="login-form">
+                <a href="{% url 'index' %}" class="login-logo">
+                    <img src="{% static 'assets/images/logo.svg' %}" alt="Vico Admin" />
+                </a>
+                <div class="login-welcome">
+                    Welcome back, <br />Pariti Delivery Service. Please log in to your account
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <label class="form-label">Password</label>
+                        <a href="{% url 'forgot-password' %}" class="btn-link ml-auto">Forgot password?</a>
+                    </div>
+                    <input type="password" class="form-control" name="password" required>
+                </div>
+                <div class="login-form-actions">
+                    <button type="submit" class="btn">
+                        <span class="icon"><i class="bi bi-arrow-right-circle"></i></span> Login
+                    </button>
+                </div>
+
+                <div class="login-form-footer">
+                    <div class="additional-link">
+                        Don't have an account? <a href="{% url 'signup' %}">Signup</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- Login box end -->
+
+    <!-- Required JavaScript Files -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/modernizr.js' %}"></script>
+    <script src="{% static 'assets/js/moment.js' %}"></script>
+
+    <!-- Main Js Required -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

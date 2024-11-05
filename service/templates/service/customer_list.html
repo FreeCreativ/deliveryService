@@ -1,0 +1,75 @@
+<!-- templates/customers/customer_list.html -->
+{% extends 'base.html' %}  <!-- Assuming you have a base template -->
+
+{% block content %}
+<div class="content-wrapper-scroll">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Customers</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="customerTable table v-middle m-0">
+                                <thead>
+                                    <tr>
+                                        <th>Customer ID</th>
+                                        <th>Customer</th>
+                                        <th>Contact</th>
+                                        <th>Status</th>
+                                        <th>Orders</th>
+                                        <th>Last Order</th>
+                                        <th>Amount</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for customer in customers %}
+                                    <tr>
+                                        <td>{{ customer.customer_id }}</td>
+                                        <td>{{ customer.name }}</td>
+                                        <td>{{ customer.contact }}</td>
+                                        <td><span class="badge shade-green min-70">{{ customer.status }}</span></td>
+                                        <td>{{ customer.orders_count }}</td>
+                                        <td>{{ customer.last_order_date }}</td>
+                                        <td>{{ customer.amount_spent }}</td>
+                                        <td>
+                                            <div class="actions">
+                                                <a href="#" class="viewRow" data-bs-toggle="modal" data-bs-target="#viewRow">
+                                                    <i class="bi bi-list text-green"></i>
+                                                </a>
+                                                <a href="#" class="deleteRow">
+                                                    <i class="bi bi-trash text-red"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-dark fade" id="viewRow" tabindex="-1" aria-labelledby="viewRowLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewRowLabel">Customer Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Customer details will go here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

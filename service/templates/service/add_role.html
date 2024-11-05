@@ -1,0 +1,97 @@
+<!-- templates/add_role.html -->
+{% extends 'base.html' %}
+
+{% block title %}Add Role{% endblock %}
+
+{% block content %}
+<div class="content-wrapper-scroll">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-border-title m-4">Add Roles</div>
+                <div class="card-body">
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="roleName">Role Name</label>
+                                    {{ form.role_name }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Order Permissions -->
+                        <div class="card-border-title mt-4 text-primary mb-2">Orders Permissions:</div>
+                        <div class="form-group row" style="border-bottom:1px #ddd solid;padding-bottom:10px">
+                            <div class="col-md-3">
+                                <label>
+                                    <input type="checkbox" name="Order[]" value="select_all" onchange="toggleOrder(this)"> Select All
+                                </label>
+                            </div>
+                            <div class="col-md-3 permission-label">
+                                <label>
+                                    <input type="checkbox" class="order-permission" name="Order[]" value="add_order"> Add Order
+                                </label>
+                            </div>
+                            <div class="col-md-3 permission-label">
+                                <label>
+                                    <input type="checkbox" class="order-permission" name="Order[]" value="view_order"> View Order History
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Expenses Permissions -->
+                        <div class="card-border-title mt-4 text-primary mb-2">Expenses Permissions:</div>
+                        <div class="form-group row" style="border-bottom:1px #ddd solid;padding-bottom:10px">
+                            <div class="col-md-3">
+                                <label>
+                                    <input type="checkbox" name="Expenses[]" value="select_all" onchange="toggleExpenses(this)"> Select All
+                                </label>
+                            </div>
+                            <div class="col-md-3 permission-label">
+                                <label>
+                                    <input type="checkbox" class="expense-permission" name="Expenses[]" value="add_expense"> Add Expense
+                                </label>
+                            </div>
+                            <div class="col-md-3 permission-label">
+                                <label>
+                                    <input type="checkbox" class="expense-permission" name="Expenses[]" value="view_expense"> View Expense History
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Customer Permissions -->
+                        <div class="card-border-title mt-4 text-primary mb-2">Customer Permissions:</div>
+                        <div class="form-group row" style="border-bottom:1px #ddd solid;padding-bottom:10px">
+                            <div class="col-md-3">
+                                <label>
+                                    <input type="checkbox" name="Customer[]" value="select_all" onchange="toggleCustomer(this)"> Select All
+                                </label>
+                            </div>
+                            <div class="col-md-3 permission-label">
+                                <label>
+                                    <input type="checkbox" class="customer-permission" name="Customer[]" value="view_customer"> View Customer History
+                                </label>
+                            </div>
+                            <div class="col-md-3 permission-label">
+                                <label>
+                                    <input type="checkbox" class="customer-permission" name="Customer[]" value="add_review"> Add Review
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="custom-btn-group flex-end">
+                                <a href="{% url 'home' %}" class="btn btn-light">Cancel</a>
+                                <button type="submit" class="btn btn-success">Add Role</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

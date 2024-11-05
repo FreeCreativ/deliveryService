@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="content-wrapper-scroll">
+
+        <!-- Content wrapper start -->
+        <div class="content-wrapper">
+
+            <!-- Row start -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Staffs</div>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table id="" class="customerTable table v-middle m-0">
+                                    <thead>
+                                    <tr>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            TR33485Th
+                                        </td>
+                                        <td>
+                                            Dolly Winters
+                                        </td>
+                                        <td>Rider</td>
+
+                                        <td>dories@gmail.com</td>
+                                        <td>081200384</td>
+
+                                        <td>
+                                            <div class="actions">
+                                                <a href="staff-profile.php" class="viewRow" data-bs-toggle="tooltip"
+                                                   data-bs-placement="top" title="View">
+                                                    <i class="bi bi-eye text-green"></i>
+                                                </a>
+                                                <a href="#" class="deleteRow" data-bs-toggle="tooltip"
+                                                   data-bs-placement="top" title="Delete">
+                                                    <i class="bi bi-trash text-red"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+
+        </div>
+        <!-- Content wrapper end -->
+{% endblock %}

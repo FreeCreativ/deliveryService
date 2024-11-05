@@ -1,0 +1,172 @@
+<!-- expenses.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="content-wrapper-scroll">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">Filter Expenses</div>
+                            <form class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="startDate" class="form-label">Expenses Date</label>
+                                    <input type="text" class="form-control custom-daterange2">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="category" class="form-label">Expense Category</label>
+                                    <select class="form-select" id="category">
+                                        <option value="">Select Expense Category</option>
+                                        <option value="Fuel" selected>Fuel</option>
+                                        <option value="Maintenance">Maintenance</option>
+                                        <option value="Packaging">Packaging</option>
+                                        <option value="Ticket">Ticket</option>
+                                        <option value="Rider">Salary</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="minAmount" class="form-label">Min Amount</label>
+                                    <input type="number" class="form-control" id="minAmount"
+                                           placeholder="Enter minimum amount">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="maxAmount" class="form-label">Max Amount</label>
+                                    <input type="number" class="form-control" id="maxAmount"
+                                           placeholder="Enter maximum amount">
+                                </div>
+                                <div class="col-md-4 align-self-end">
+                                    <button type="button" class="btn btn-primary w-100">Generate Report</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Expenses</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="customerTable" class="customerTable table v-middle">
+                                    <thead>
+                                    <tr>
+                                        <th>ExpID</th>
+                                        <th>Category</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Vendor/Payee</th>
+                                        <th>Payment Method</th>
+                                        <th>Date</th>
+                                        <th>Exp Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for expense in expenses %}
+                                        <tr>
+                                            <td>{{ expense.exp_id }}</td>
+                                            <td>{{ expense.category }}</td>
+                                            <td>{{ expense.description }}</td>
+                                            <td>{{ expense.amount }}</td>
+                                            <td>{{ expense.vendor }}</td>
+                                            <td>{{ expense.payment_method }}</td>
+                                            <td>{{ expense.date }}</td>
+                                            <td><span class="badge shade-green min-90">{{ expense.status }}</span></td>
+                                            <td>
+                                                <div class="actions">
+                                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                                            data-bs-target="#editmodel" title="Edit">
+                                                        <i class="bi bi-pencil-square text-green"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger" title="Delete"
+                                                            style="margin-left: 10px;">
+                                                        <i class="bi bi-trash text-white"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit modal -->
+        <div class="modal fade" id="editmodel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="scrollableLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px #ddd solid;">
+                        <h5 class="modal-title" id="scrollableLabel">Edit Expense</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Expense Name <span class="text-red">*</span></label>
+                                        <input type="text" class="form-control" name="expName"
+                                               placeholder="eg. Buying of fuel" value="Buying of fuel">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Amount <span class="text-red">*</span></label>
+                                        <input type="text" class="form-control" name="expAmount"
+                                               placeholder="Enter Expense Amount" value="500">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Expense Category<span
+                                                class="text-red">*</span></label>
+                                        <select class="form-control" name="expCategory">
+                                            <option value="">Select Expense Category</option>
+                                            <option value="Fuel" selected>Fuel</option>
+                                            <option value="Maintenance">Maintenance</option>
+                                            <option value="Packaging">Packaging</option>
+                                            <option value="Ticket">Ticket</option>
+                                            <option value="Rider">Salary</option>
+                                            <option value="Others">Others</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Vendor <span
+                                                class="text-red">(optional)</span></label>
+                                        <input type="text" class="form-control" name="vendor"
+                                               placeholder="Enter vendor name" value="Vendor Name">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Status <span class="text-red">*</span></label>
+                                        <select class="form-control" name="status">
+                                            <option value="Paid" selected>Paid</option>
+                                            <option value="Reimbursed">Reimbursed</option>
+                                            <option value="Pending">Pending</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Edit</button>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End -->
+    </div>
+{% endblock %}
