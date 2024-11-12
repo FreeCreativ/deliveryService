@@ -5,8 +5,8 @@ from .customer import Customer
 
 
 class Order(models.Model):
-    rider = models.ForeignKey(Staff, on_delete=models.CASCADE, related_query_name='rider')
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_query_name='customer')
+    rider = models.ForeignKey(Staff, null=True, blank=True, on_delete=models.SET_NULL)
+    customer_name = models.ForeignKey(Customer, on_delete=models.CASCADE, related_query_name='customer')
     order_id = models.CharField(max_length=20, unique=True)
     from_location = models.CharField(max_length=255)
     to_location = models.CharField(max_length=255)
@@ -24,3 +24,5 @@ class Order(models.Model):
 
     def __str__(self):
         return self.order_id
+    class Meta:
+        ordering='-order_date'

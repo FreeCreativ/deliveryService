@@ -122,3 +122,24 @@ MEDIA_ROOT = [BASE_DIR / "media"]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# import os
+#
+# SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "your-default-secret-key")
+# DEBUG = False
+# ALLOWED_HOSTS = ['yourdomain.com']
+#
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# X_FRAME_OPTIONS = 'DENY'
+#
+# CSRF_TRUSTED_ORIGINS = ['https://yourdomain.com']
+# SECURE_HSTS_SECONDS = 31536000
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+#
+# ADMINS = [('Admin Name', 'admin_email@example.com')]
+
+LOGIN_URL = 'service:login'
+LOGIN_REDIRECT_URL = 'service:dashboard'

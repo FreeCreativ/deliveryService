@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    - setting
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+
+        <!-- Row start -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-16 col-sm-12 col-12">
+                                    <div class="card-border">
+                                        <div class="card-border-title">Business Setting</div>
+                                        <div class="card-border-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Business Name <span
+                                                                class="text-red">*</span></label>
+                                                        <input type="text" class="form-control"
+                                                               placeholder="Enter Business name" name="Bname">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Started Date <span
+                                                                class="text-red">*</span></label>
+                                                        <input type="text" class="form-control" readonly name="bdate"
+                                                               value="10/10/2024">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Upload Logo <span class="text-red">(png,svg)</span></label>
+                                                        <input type="file" class="form-control" id="inputGroupFile04"
+                                                               aria-describedby="inputGroupFileAddon04"
+                                                               aria-label="Upload">
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Currency <span
+                                                                class="text-red">*</span></label>
+                                                        <select id="country-currency-select" class="form-control">
+                                                            <option value="">Select a country and currency...</option>
+                                                            <option value="AFN">Afghanistan - Afghan afghani (AFN)
+                                                            </option>
+                                                            <option value="ALL">Albania - Albanian lek (ALL)</option>
+                                                            <option value="DZD">Algeria - Algerian dinar (DZD)</option>
+                                                            <option value="USD">United States - US dollar (USD)</option>
+                                                            <option value="EUR">Eurozone - Euro (EUR)</option>
+                                                            <option value="AUD">Australia - Australian dollar (AUD)
+                                                            </option>
+                                                            <option value="CAD">Canada - Canadian dollar (CAD)</option>
+                                                            <option value="CNY">China - Renminbi (CNY)</option>
+                                                            <option value="JPY">Japan - Japanese yen (JPY)</option>
+                                                            <option value="INR">India - Indian rupee (INR)</option>
+                                                            <!-- African Countries -->
+                                                            <option value="NGN">Nigeria - Nigerian naira (NGN)</option>
+                                                            <option value="ZAR">South Africa - South African rand (ZAR)
+                                                            </option>
+                                                            <option value="KES">Kenya - Kenyan shilling (KES)</option>
+                                                            <option value="GHS">Ghana - Ghanaian cedi (GHS)</option>
+                                                            <option value="TND">Tunisia - Tunisian dinar (TND)</option>
+                                                            <option value="MAD">Morocco - Moroccan dirham (MAD)</option>
+                                                            <option value="ETB">Ethiopia - Ethiopian birr (ETB)</option>
+                                                            <option value="XOF">West African States - CFA franc (XOF)
+                                                            </option>
+                                                            <option value="UGX">Uganda - Ugandan shilling (UGX)</option>
+                                                            <option value="DZD">Algeria - Algerian dinar (DZD)</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Currency Symbol Placement <span
+                                                                class="text-red">*</span></label>
+                                                        <select id="country-currency-select" class="form-control">
+                                                            <option value="Before">Before Amount</option>
+                                                            <option value="After">After Amount</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-12 col-lg-12 col-md-16 col-sm-12 col-12">
+                                    <div class="card-border">
+                                        <div class="card-border-title">Contact Setting</div>
+                                        <div class="card-border-body">
+
+                                            <div class="row">
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Business Email <span
+                                                                class="text-red">*</span></label>
+                                                        <input type="email" class="form-control"
+                                                               value="mybusines@gmail.com"
+                                                               name="bemail">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Business Phone <span
+                                                                class="text-red">*</span></label>
+                                                        <input type="text" class="form-control"
+                                                               placeholder="Enter phone Number" name="bphone">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Business Country <span
+                                                                class="text-red">*</span></label>
+                                                        <input type="email" class="form-control"
+                                                               value="mybusines@gmail.com"
+                                                               name="bcountry">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Business State <span
+                                                                class="text-red">*</span></label>
+                                                        <input type="text" class="form-control"
+                                                               placeholder="Enter phone Number" name="bstate">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <div class="mb-0">
+                                                        <label class="form-label">Business Address <span
+                                                                class="text-red">*</span></label>
+                                                        <textarea rows="4" class="form-control"
+                                                                  placeholder="Enter full address of your business"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="custom-btn-group flex-end">
+
+                                        <a href="{% url 'service:dashboard' %}" class="btn btn-light">Cancel</a>
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row end -->
+
+    </div>
+					
+{% endblock %}

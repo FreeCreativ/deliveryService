@@ -20,7 +20,7 @@
 
         <!-- Sidebar brand starts -->
         <div class="sidebar-brand">
-            <a href="{% url 'dashboard' %}" class="logo">
+            <a href="{% url 'service:dashboard' %}" class="logo">
                 <img src="{% static 'assets/images/logo.svg' %}" alt="Arise Admin Dashboard"/>
             </a>
         </div>
@@ -32,7 +32,7 @@
                 <ul>
 
                     <li>
-                        <a href="{% url 'dashboard' %}">
+                        <a href="{% url 'service:dashboard' %}">
                             <i class="bi bi-house"></i>
                             <span class="menu-text">Dashboards</span>
                         </a>
@@ -47,11 +47,11 @@
                         <div class="sidebar-submenu">
                             <ul>
                                 <li>
-                                    <a href="{% url 'orders_history' %}">Order History</a>
+                                    <a href="{% url 'service:order_list' %}">Order History</a>
                                 </li>
 
                                 <li>
-                                    <a href="{% url 'add_order' %}">Add Order</a>
+                                    <a href="{% url 'service:add_order' %}">Add Order</a>
                                 </li>
 
                             </ul>
@@ -65,10 +65,10 @@
                         <div class="sidebar-submenu">
                             <ul>
                                 <li>
-                                    <a href="{% url 'expenses' %}">Expenses History</a>
+                                    <a href="{% url 'service:expenses' %}">Expenses History</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'add_expense' %}">Add Expenses</a>
+                                    <a href="{% url 'service:add_expense' %}">Add Expenses</a>
                                 </li>
                             </ul>
                         </div>
@@ -82,10 +82,10 @@
                         <div class="sidebar-submenu">
                             <ul>
                                 <li>
-                                    <a href="{% url 'customer_list' %}">Customers</a>
+                                    <a href="{% url 'service:customer_list' %}">Customers</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'add_review' %}"> Customer Reviews</a>
+                                    <a href="{% url 'service:review_list' %}"> Customer Reviews</a>
                                 </li>
                             </ul>
                         </div>
@@ -98,10 +98,10 @@
                         <div class="sidebar-submenu">
                             <ul>
                                 <li>
-                                    <a href="staffs.php">Staffs</a>
+                                    <a href="staffs.php">Staff</a>
                                 </li>
                                 <li>
-                                    <a href="add-staff.php"> Register Staffs</a>
+                                    <a href="add-staff.php"> Register Staff</a>
                                 </li>
                             </ul>
                         </div>
@@ -115,7 +115,7 @@
                         <div class="sidebar-submenu">
                             <ul>
                                 <li>
-                                    <a href="{% url 'business_settings' %}">Business Settings</a>
+                                    <a href="{% url 'business:settings' %}">Business Settings</a>
                                 </li>
                                 <li>
                                     <a href="role-permission.php"> Roles and Permission</a>
@@ -167,35 +167,28 @@
             <ol class="breadcrumb d-md-flex d-none">
                 <li class="breadcrumb-item">
                     <i class="bi bi-house"></i>
-                    <a href="{% url 'dashboard' %}">Home</a>
+                    <a href="{% url 'service:dashboard' %}">Home</a>
                 </li>
                 <li class="breadcrumb-item breadcrumb-active" aria-current="page">Dashboard</li>
             </ol>
             <!-- Breadcrumb end -->
 
-            <!-- Header actions ccontainer start -->
+            <!-- Header actions container start -->
             <div class="header-actions-container">
-
                 <!-- Filter  container start -->
-
-
                 <div class="card-body">
-                    <a href="{% url 'add_order' %}">
+                    <a href="{% url 'service:add_order' %}">
 
                         <button type="button" class="btn btn-info"><i class="bi bi-plus-square"></i> Add New Order
                         </button>
                     </a>
-                    <a href="{% url 'add_expense' %}">
-
+                    <a href="{% url 'service:add_expense' %}">
                         <button type="button" class="btn btn-danger"><i class="bi bi-plus-square"></i> Add New Expense
                         </button>
                     </a>
                 </div>
-
                 <!-- Search container end -->
-
-                <a href="{% url 'add_review' %}" style="margin-left: 10px;">
-
+                <a href="{% url 'service:review_list' %}" style="margin-left: 10px;">
                     <button type="button" class="btn btn-light "><i class="bi bi-plus-square"></i> Add Review</button>
                 </a>
 
@@ -207,7 +200,7 @@
                             <span class="avatar">
 										<img src="{% static 'assets/images/user.png' %}" alt="User Avatar">
 										<span class="status online"></span>
-									</span>
+                            </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userSettings">
                             <div class="header-profile-actions">
@@ -224,5 +217,3 @@
             <!-- Header actions ccontainer end -->
 
         </div>
-    </div>
-</div>

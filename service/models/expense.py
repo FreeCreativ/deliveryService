@@ -2,8 +2,16 @@ from django.db import models
 
 
 class Expense(models.Model):
-    exp_id = models.CharField(max_length=20, unique=True)
-    category = models.CharField(max_length=50)
+    CATEGORY_CHOICES = [
+        ('Fuel', 'Fuel'),
+        ('Maintenance', 'Maintenance'),
+        ('Packaging', 'Packaging'),
+        ('Ticket', 'Ticket'),
+        ('Rider', 'Rider Fee'),
+        ('Others', 'Others'),
+    ]
+    expense_id = models.CharField(max_length=20, unique=True)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     description = models.TextField()
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     vendor = models.CharField(max_length=255)
@@ -20,4 +28,4 @@ class Expense(models.Model):
     ])
 
     def __str__(self):
-        return self.exp_id
+        return self.expense_id

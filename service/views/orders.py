@@ -1,6 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
+from django.shortcuts import redirect, render, get_object_or_404
 
 from service.forms import OrderForm
 from service.models import Order
@@ -9,8 +11,9 @@ from service.models import Order
 class AddOrderView(CreateView):
     model = Order
     form_class = OrderForm
-    template_name = 'service/add_order.html'
-    success_url = reverse_lazy('dashboard')
+    template_name = 'service/order/add_order.html'
+    success_url = reverse_lazy('service:dashboard')
+
 
 class OrderListView(ListView):
     model = Order
@@ -34,5 +37,4 @@ class OrderListView(ListView):
             order.status = 'cancelled'
             order.description += f"\nCancelled: {reason}"
         order.save()
-
         return redirect('order_list')

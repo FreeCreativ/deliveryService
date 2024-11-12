@@ -16,9 +16,9 @@ class DashboardView(TemplateView):
             'total_orders': Order.objects.count(),
             'pending_orders': Order.objects.filter(status='Pending').count(),
             'completed_orders': Order.objects.filter(status='Delivered').count(),
-            'total_revenue': sum(order.amount for order in Order.objects.all()),
-            'total_expenses': sum(expense.amount for expense in Expense.objects.all()),
-            'net_profit': context['total_revenue'] - context['total_expenses'],
+            # 'total_revenue': sum(order.amount for order in Order.objects.all()),
+            # 'total_expenses': sum(expense.amount for expense in Expense.objects.all()),
+            # 'net_profit': context['total_revenue'] - context['total_expenses'],
             'recent_orders': Order.objects.all()[:5],
             'recent_expenses': Expense.objects.all()[:5],
         })
