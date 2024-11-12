@@ -1,5 +1,7 @@
 from django.db import models
 
+from business.models import Staff
+
 
 class Expense(models.Model):
     CATEGORY_CHOICES = [
@@ -10,8 +12,10 @@ class Expense(models.Model):
         ('Rider', 'Rider Fee'),
         ('Others', 'Others'),
     ]
+    staff = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True, blank=True)
     expense_id = models.CharField(max_length=20, unique=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
+    name = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField()
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     vendor = models.CharField(max_length=255)

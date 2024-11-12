@@ -59,9 +59,10 @@
 
 <!-- Login box start -->
 <form method="post">
+    {% csrf_token %}
     <div class="login-box">
         <div class="login-form">
-            <a href="index.html" class="login-logo">
+            <a href="{% url 'service:dashboard' %}" class="login-logo">
                 <img src="{% static 'assets/images/logo.svg' %}" alt="Vico Admin"/>
             </a>
             <div class="login-welcome">
@@ -69,14 +70,14 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Username</label>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" name={{ form.username.name }}>
             </div>
             <div class="mb-3">
                 <div class="d-flex justify-content-between">
                     <label class="form-label">Password</label>
-                    <a href="forgot-password.php" class="btn-link ml-auto">Forgot password?</a>
+                    <a href="{% url 'password_reset' %}" class="btn-link ml-auto">Forgot password?</a>
                 </div>
-                <input type="password" class="form-control">
+                <input type="password" class="form-control" name={{ form.password.name }}>
             </div>
             <div class="login-form-actions">
                 <button type="submit" class="btn"><span class="icon"> <i class="bi bi-arrow-right-circle"></i> </span>

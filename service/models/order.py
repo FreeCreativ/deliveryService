@@ -24,5 +24,6 @@ class Order(models.Model):
 
     def __str__(self):
         return self.order_id
+
     class Meta:
-        ordering='-order_date'
+        ordering = ('-order_date',)

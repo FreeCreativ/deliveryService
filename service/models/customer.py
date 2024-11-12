@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Sum, Count, Max
+from django.db.models import Sum, Count, Max, Q
 
 
 class Customer(models.Model):
