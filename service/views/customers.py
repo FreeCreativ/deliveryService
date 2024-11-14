@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView
 
@@ -5,7 +6,7 @@ from service.forms import CustomerForm
 from service.models import Customer
 
 
-class CustomerListView(ListView):
+class CustomerListView(LoginRequiredMixin, ListView):
     model = Customer
     template_name = 'service/customer_list.html'
     context_object_name = 'customers'

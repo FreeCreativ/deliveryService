@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-	Dashboard
+    Dashboard
 {% endblock %}
 
 {% block content %}
@@ -25,7 +25,7 @@
                         <i class="bi bi-pie-chart"></i>
                     </div>
                     <div class="sale-details">
-                        <h3 class="text-blue">300</h3>
+                        <h3 class="text-blue">{{ total_orders }}</h3>
                         <p> Total Orders</p>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                         <i class="bi bi-emoji-smile"></i>
                     </div>
                     <div class="sale-details">
-                        <h3 class="text-yellow">24</h3>
+                        <h3 class="text-yellow">{{ pending_orders }}</h3>
                         <p>Pending Orders</p>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         <i class="bi bi-box-seam"></i>
                     </div>
                     <div class="sale-details">
-                        <h3 class="text-green">276</h3>
+                        <h3 class="text-green">{{ completed_orders }}</h3>
                         <p>Completed Orders</p>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         <i class="bi bi-emoji-smile"></i>
                     </div>
                     <div class="sale-details">
-                        <h3 class="text-blue">#200000</h3>
+                        <h3 class="text-blue">{{ total_revenue }}</h3>
                         <p>Total Revenue</p>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                         <i class="bi bi-handbag"></i>
                     </div>
                     <div class="sale-details">
-                        <h3 class="text-red">#20,000</h3>
+                        <h3 class="text-red">{{ total_expenses }}</h3>
                         <p>Total Expenses</p>
                     </div>
                 </div>
@@ -80,13 +80,14 @@
                         <i class="bi bi-box-seam"></i>
                     </div>
                     <div class="sale-details">
-                        <h3 class="text-green">180,000</h3>
+                        <h3 class="text-green">{{ net_profit }}</h3>
                         <p>Net Profits</p>
                     </div>
                 </div>
             </div>
 
         </div>
+
         <!-- Row end -->
         <div class="row">
             <div class="col-xxl-9 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -161,7 +162,6 @@
                     <div class="card-header">
                         <div class="card-title">Recent Orders</div>
                         <a href="{% url 'service:add_order' %}">
-
                             <button type="button" class="btn btn-info"><i class="bi bi-plus-square"></i> Add New Order
                             </button>
                         </a>
@@ -185,258 +185,54 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="media-box">
+    {% for order in orders %}
+    <tr>
+        <td>
+            <div class="media-box">
+                <div class="media-box-body">
+                    <div class="text-truncate">{{ order.order_id }}</div>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="media-box">
+                <div class="media-box-body">
+                    <div class="text-truncate">{{ order.customer_name }}</div>
+                </div>
+            </div>
+        </td>
+        <td>{{ order.location }}</td>
+        <td>{{ order.purpose }}</td>
+        <td>{{ order.amount }}</td>
+        <td>{{ order.type }}</td>
+        <td>{{ order.time }}</td>
+        <td>
+            <span class="badge shade-{{ order.status_color }} min-90">{{ order.status }}</span>
+        </td>
+        <td>
+            <div class="actions">
+                <a href="#" class="viewRow" data-bs-toggle="modal" data-bs-target="#modalDark"
+                   data-bs-toggle="tooltip" data-bs-placement="top" title="Complete Order">
+                    <i class="bi bi-send-check-fill text-green"></i>
+                </a>
+                <a href="#" class="viewRow" data-bs-toggle="modal" data-bs-target="#modalReason"
+                   data-bs-toggle="tooltip" data-bs-placement="top" title="Cancel Order">
+                    <i class="bi bi-x-octagon-fill text-red"></i>
+                </a>
+                <a href="#" class="viewRow" data-bs-toggle="modal" data-bs-target="#scrollable"
+                   data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
+                    <i class="bi bi-list text-dark"></i>
+                </a>
+            </div>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="9">No orders found</td>
+    </tr>
+    {% endfor %}
+</tbody>
 
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">PR03541</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">natachi New Heaven</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Premier Layout</td>
-                                    <td>Buying of Food</td>
-                                    <td>#3000.00</td>
-                                    <td>
-                                        Errand
-                                    </td>
-                                    <td>
-                                        08:56 am
-                                    </td>
-
-                                    <td>
-                                        <span class="badge shade-green min-90">Delivered</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions">
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#modalDark"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Complete Order">
-                                                <i class="bi bi-send-check-fill text-green"></i>
-                                            </a>
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#modalReason"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Cancel Order">
-                                                <i class="bi bi-x-octagon-fill text-red"></i>
-                                            </a>
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#scrollable"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
-                                                <i class="bi bi-list text-dark"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">ERT394</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">Mimikin Shop,Ogbete</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Thinkers Conner</td>
-                                    <td>Pickup cream and perfume</td>
-                                    <td>#4000.00</td>
-                                    <td>
-                                        Pickup
-                                    </td>
-                                    <td>
-                                        08:56 am
-                                    </td>
-
-                                    <td>
-                                        <span class="badge shade-red min-90">Cancelled</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions">
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#modalDark"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Complete Order">
-                                                <i class="bi bi-send-check-fill text-green"></i>
-                                            </a>
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#modalReason"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Cancel Order">
-                                                <i class="bi bi-x-octagon-fill text-red"></i>
-                                            </a>
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#scrollable"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
-                                                <i class="bi bi-list text-dark"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">PR03541</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">natachi New Heaven</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Premier Layout</td>
-                                    <td>Buying of Food</td>
-                                    <td>#3000.00</td>
-                                    <td>
-                                        Waybill
-                                    </td>
-                                    <td>
-                                        08:56 am
-                                    </td>
-
-                                    <td>
-                                        <span class="badge shade-blue min-90">Processing</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions">
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#modalDark"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Complete Order">
-                                                <i class="bi bi-send-check-fill text-green"></i>
-                                            </a>
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#modalReason"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Cancel Order">
-                                                <i class="bi bi-x-octagon-fill text-red"></i>
-                                            </a>
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#scrollable"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
-                                                <i class="bi bi-list text-dark"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">PR03541</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">natachi New Heaven</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Premier Layout</td>
-                                    <td>Buying of Food</td>
-                                    <td>#3000.00</td>
-                                    <td>
-                                        Errand
-                                    </td>
-                                    <td>
-                                        08:56 am
-                                    </td>
-
-                                    <td>
-                                        <span class="badge shade-green min-90">Delivered</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions">
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#modalDark"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Complete Order">
-                                                <i class="bi bi-send-check-fill text-green"></i>
-                                            </a>
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#modalReason"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Cancel Order">
-                                                <i class="bi bi-x-octagon-fill text-red"></i>
-                                            </a>
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#scrollable"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
-                                                <i class="bi bi-list text-dark"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">ERT394</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">Mimikin Shop,Ogbete</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Thinkers Conner</td>
-                                    <td>Pickup cream and perfume</td>
-                                    <td>#4000.00</td>
-                                    <td>
-                                        Pickup
-                                    </td>
-                                    <td>
-                                        08:56 am
-                                    </td>
-
-                                    <td>
-                                        <span class="badge shade-red min-90">Cancelled</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions">
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#modalDark"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Complete Order">
-                                                <i class="bi bi-send-check-fill text-green"></i>
-                                            </a>
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#modalReason"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Cancel Order">
-                                                <i class="bi bi-x-octagon-fill text-red"></i>
-                                            </a>
-                                            <a href="#" class="viewRow" data-bs-toggle="modal"
-                                               data-bs-target="#scrollable"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
-                                                <i class="bi bi-list text-dark"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                </tbody>
                             </table>
 
                         </div>

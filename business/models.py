@@ -39,6 +39,9 @@ class Staff(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural='Staff'
+
 
 class BusinessSetting(models.Model):
     business_name = models.CharField(max_length=255)
@@ -55,6 +58,8 @@ class BusinessSetting(models.Model):
 
     def __str__(self):
         return self.business_name
+    class Meta:
+        verbose_name_plural='business setting'
 
 
 class Activity(models.Model):

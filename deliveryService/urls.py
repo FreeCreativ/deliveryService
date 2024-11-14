@@ -20,10 +20,25 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.views.generic import TemplateView
+
+
+def custom_logout_view(request):
+    logout(request)
+    return redirect('login')
+
+
+class LogoutView(TemplateView):
+    template_name = 'registration/logout.html'
+
+
 urlpatterns = [
     # Other URL patterns
     path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logged_out/', auth_views.LogoutView.as_view(), name='logged_out'),
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),

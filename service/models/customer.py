@@ -1,9 +1,17 @@
+import random
+import string
+
 from django.db import models
 from django.db.models import Sum, Count, Max, Q
 
 
+def generate_customer_id():
+    """Generate a random alphanumeric string of length 8 for the customerId"""
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+
+
 class Customer(models.Model):
-    customer_id = models.CharField(max_length=20, unique=True)
+    customer_id = models.CharField(max_length=20, unique=True, default=generate_customer_id())
     customer_name = models.CharField(max_length=100)
     contact = models.CharField(max_length=15)
     joined = models.DateTimeField(auto_now_add=True)
@@ -47,14 +55,14 @@ class Customer(models.Model):
         return self._amount
 
     def __str__(self):
-        return self.customer_name
+        return f'self.customer_name'
 
 
 class Review(models.Model):
-    customer_name = models.CharField(max_length=150)
+    customer = models.CharField(max_length=150)
     review = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'Review by {self.customer_name} on {self.date}'
+        return f'Review by {self.customer} on {self.date}'

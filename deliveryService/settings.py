@@ -153,10 +153,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #
 # ADMINS = [('Admin Name', 'admin_email@example.com')]
 
-LOGIN_URL = 'login'
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = 'service:dashboard'
 # settings.py # Redirect to home page after login
-LOGOUT_REDIRECT_URL = 'login'  # Redirect to home page after logout
+LOGOUT_REDIRECT_URL = '/login/'
 
 # EMAIL
 if DEBUG:

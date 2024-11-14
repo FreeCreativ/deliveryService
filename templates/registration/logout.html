@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+</head>
+<body>
+<!-- templates/registration/logout.html -->
+<h2>Are you sure you want to log out?</h2>
+<form method="post" action="{% url 'logged_out' %}">
+    {% csrf_token %}
+    <button type="submit">Log out</button>
+</form>
+
+</body>
+</html>

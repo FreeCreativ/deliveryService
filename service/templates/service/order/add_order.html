@@ -12,7 +12,8 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <form>
+                        <form method="post">
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="col-xl-12 col-lg-12 col-md-16 col-sm-12 col-12">
                                     <div class="card-border">
@@ -25,7 +26,8 @@
                                                         <label class="form-label">From <span
                                                                 class="text-red">*</span></label>
                                                         <input type="text" class="form-control"
-                                                               placeholder="Enter Pickup Address" name="from">
+                                                               placeholder="Enter Pickup Address"
+                                                               name="{{ form.from_location.name }}">
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -33,14 +35,15 @@
                                                         <label class="form-label">To <span
                                                                 class="text-red">*</span></label>
                                                         <input type="text" class="form-control"
-                                                               placeholder="Enter Delivery Address" name="to">
+                                                               placeholder="Enter Delivery Address"
+                                                               name="{{ form.to_location.name }}">
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="mb-3">
                                                         <label class="form-label">Order Type <span
                                                                 class="text-red">*</span></label>
-                                                        <select class="form-control" name="ordertype">
+                                                        <select class="form-control" name="{{ form.order_type.name }}">
 
                                                             <option value="Pickup">Pickup</option>
                                                             <option value="Errand">Errand</option>
@@ -52,7 +55,8 @@
                                                     <div class="mb-3">
                                                         <label class="form-label">Amount <span class="text-red">*</span></label>
                                                         <input type="text" class="form-control"
-                                                               placeholder="Enter order Price">
+                                                               placeholder="Enter order Price"
+                                                               name="{{ form.amount.name }}">
                                                     </div>
                                                 </div>
 
@@ -61,7 +65,8 @@
                                                         <label class="form-label">Order Description <span
                                                                 class="text-red">*</span></label>
                                                         <textarea rows="4" class="form-control"
-                                                                  placeholder="Enter order Description"></textarea>
+                                                                  placeholder="Enter order Description"
+                                                                  name="{{ form.description.name }}"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -81,14 +86,16 @@
                                                         <label class="form-label">Customer Name <span
                                                                 class="text-red">*</span></label>
                                                         <input type="text" class="form-control"
-                                                               placeholder="Enter custormer Name" name="cname">
+                                                               placeholder="Enter custormer Name"
+                                                               name="{{ customer_form.customer_name.name }}">
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="mb-3">
                                                         <label class="form-label">Customer Phone <span class="text-red">*</span></label>
                                                         <input type="text" class="form-control"
-                                                               placeholder="Enter phone Number" name="cphone">
+                                                               placeholder="Enter phone Number"
+                                                               name="{{ customer_form.contact.name }}">
                                                     </div>
                                                 </div>
 

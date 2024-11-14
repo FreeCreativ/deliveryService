@@ -140,7 +140,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="logout.php">
+                        <a href="{% url 'logout' %}">
                             <i class="bi bi-box-arrow-in-right"></i>
                             <span class="menu-text">Logout</span>
                         </a>
@@ -206,7 +206,7 @@
                             <div class="header-profile-actions">
                                 <a href="profile.html">Profile</a>
                                 <a href="account-settings.html">Settings</a>
-                                <a href="login.html">Logout</a>
+                                <a href="{% url 'logout' %}">Logout</a>
                             </div>
                         </div>
                     </li>

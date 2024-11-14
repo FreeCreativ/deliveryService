@@ -33,3 +33,6 @@ class Expense(models.Model):
 
     def __str__(self):
         return self.expense_id
+
+    class Meta:
+        ordering=('-date',)

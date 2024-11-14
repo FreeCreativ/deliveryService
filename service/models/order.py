@@ -1,13 +1,21 @@
+import random
+import string
+
 from django.db import models
 
 from business.models import Staff
 from .customer import Customer
 
 
+def generate_order_id():
+    """Generate a random alphanumeric string of length 8 for the customerId"""
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+
+
 class Order(models.Model):
     rider = models.ForeignKey(Staff, null=True, blank=True, on_delete=models.SET_NULL)
-    customer_name = models.ForeignKey(Customer, on_delete=models.CASCADE, related_query_name='customer')
-    order_id = models.CharField(max_length=20, unique=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_query_name='customer')
+    order_id = models.CharField(max_length=20, unique=True, default=generate_order_id())
     from_location = models.CharField(max_length=255)
     to_location = models.CharField(max_length=255)
     description = models.TextField()
@@ -23,7 +31,6 @@ class Order(models.Model):
     cancel_reason = models.CharField('reason', max_length=150, blank=True, null=True)
 
     def __str__(self):
-        return self.order_id
-
+        return f"Order {self.order_id} - {self.from_location} to {self.to_location}"
     class Meta:
         ordering = ('-order_date',)

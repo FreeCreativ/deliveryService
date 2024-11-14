@@ -36,7 +36,7 @@ class ExpensesView(LoginRequiredMixin, ListView):
         return super().get(request, *args, **kwargs)
 
 
-class AddExpenseView(CreateView):
+class AddExpenseView(LoginRequiredMixin, CreateView):
     model = Expense
     form_class = ExpenseForm
     template_name = 'service/expense/add_expense.html'
