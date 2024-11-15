@@ -20,7 +20,6 @@ class AddOrderView(LoginRequiredMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         # Instantiate the forms with POST data
-        print(request.POST)
         order_form = OrderForm(request.POST)
         customer_form = CustomerForm(request.POST)
 

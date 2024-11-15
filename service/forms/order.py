@@ -1,5 +1,4 @@
 from django import forms
-from django.forms import inlineformset_factory
 
 from service.models import Customer, Order
 
@@ -7,7 +6,7 @@ from service.models import Customer, Order
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ['order_type', 'from_location', 'to_location', 'description', 'amount', 'to_location', 'customer']
 
     def __init__(self, *args, **kwargs):
         super(OrderForm, self).__init__(*args, **kwargs)

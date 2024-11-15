@@ -5,17 +5,17 @@ from django.db import models
 from django.db.models import Sum, Count, Max, Q
 
 
-def generate_customer_id():
+def generate_id():
     """Generate a random alphanumeric string of length 8 for the customerId"""
     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 
 
 class Customer(models.Model):
-    customer_id = models.CharField(max_length=20, unique=True, default=generate_customer_id())
+    customer_id = models.CharField(max_length=20, unique=True, default=generate_id())
     customer_name = models.CharField(max_length=100)
     contact = models.CharField(max_length=15)
     joined = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=10)
+    status = models.CharField(max_length=10, blank=True, null=True)
 
     def get_order_summary(self):
         """

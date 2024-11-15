@@ -185,54 +185,58 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-    {% for order in orders %}
-    <tr>
-        <td>
-            <div class="media-box">
-                <div class="media-box-body">
-                    <div class="text-truncate">{{ order.order_id }}</div>
-                </div>
-            </div>
-        </td>
-        <td>
-            <div class="media-box">
-                <div class="media-box-body">
-                    <div class="text-truncate">{{ order.customer_name }}</div>
-                </div>
-            </div>
-        </td>
-        <td>{{ order.location }}</td>
-        <td>{{ order.purpose }}</td>
-        <td>{{ order.amount }}</td>
-        <td>{{ order.type }}</td>
-        <td>{{ order.time }}</td>
-        <td>
-            <span class="badge shade-{{ order.status_color }} min-90">{{ order.status }}</span>
-        </td>
-        <td>
-            <div class="actions">
-                <a href="#" class="viewRow" data-bs-toggle="modal" data-bs-target="#modalDark"
-                   data-bs-toggle="tooltip" data-bs-placement="top" title="Complete Order">
-                    <i class="bi bi-send-check-fill text-green"></i>
-                </a>
-                <a href="#" class="viewRow" data-bs-toggle="modal" data-bs-target="#modalReason"
-                   data-bs-toggle="tooltip" data-bs-placement="top" title="Cancel Order">
-                    <i class="bi bi-x-octagon-fill text-red"></i>
-                </a>
-                <a href="#" class="viewRow" data-bs-toggle="modal" data-bs-target="#scrollable"
-                   data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
-                    <i class="bi bi-list text-dark"></i>
-                </a>
-            </div>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="9">No orders found</td>
-    </tr>
-    {% endfor %}
-</tbody>
-
+                                {% for order in recent_orders %}
+                                    <tr>
+                                        <td>
+                                            <div class="media-box">
+                                                <div class="media-box-body">
+                                                    <div class="text-truncate">{{ order.order_id }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="media-box">
+                                                <div class="media-box-body">
+                                                    <div class="text-truncate">{{ order.from_location }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{ order.to_location }}</td>
+                                        <td>{{ order.description }}</td>
+                                        <td>{{ order.amount }}</td>
+                                        <td>{{ order.order_type }}</td>
+                                        <td>{{ order.order_date }}</td>
+                                        <td>
+                                            <span class="badge shade-{{ order.status_color }} min-90">{{ order.status }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="actions">
+                                                <a href="#" class="viewRow" data-bs-toggle="modal"
+                                                   data-bs-target="#modalDark"
+                                                   data-bs-toggle="tooltip" data-bs-placement="top"
+                                                   title="Complete Order">
+                                                    <i class="bi bi-send-check-fill text-green"></i>
+                                                </a>
+                                                <a href="#" class="viewRow" data-bs-toggle="modal"
+                                                   data-bs-target="#modalReason"
+                                                   data-bs-toggle="tooltip" data-bs-placement="top"
+                                                   title="Cancel Order">
+                                                    <i class="bi bi-x-octagon-fill text-red"></i>
+                                                </a>
+                                                <a href="#" class="viewRow" data-bs-toggle="modal"
+                                                   data-bs-target="#scrollable"
+                                                   data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
+                                                    <i class="bi bi-list text-dark"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="9">No orders found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
                             </table>
 
                         </div>
@@ -252,174 +256,88 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">Recent Expenses</div>
-                        <a href="add-expenses.php">
+                        <a href="{% url 'service:add_expense' %}">
                             <button type="button" class="btn btn-info"><i class="bi bi-plus-square"></i> Add New
                                 Expenses
                             </button>
                         </a>
                     </div>
                     <div class="card-body">
-
                         <div class="table-responsive">
-                            <table id="" class=" table v-middle">
+                            <table id="" class="table v-middle">
                                 <thead>
                                 <tr>
                                     <th>ExpID</th>
-                                    <th>Catigory</th>
+                                    <th>Category</th>
                                     <th>Description</th>
                                     <th>Amount</th>
                                     <th>Vendor/Payee</th>
-                                    <th>payment Method</th>
+                                    <th>Payment Method</th>
                                     <th>Date</th>
-
-
                                     <th>Exp Status</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">PR03541</div>
+                                {% for expense in recent_expenses %}
+                                    <tr>
+                                        <td>
+                                            <div class="media-box">
+                                                <div class="media-box-body">
+                                                    <div class="text-truncate">{{ expense.id }}</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>Fuel</td>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">Buy Fuel</div>
+                                        </td>
+                                        <td>{{ expense.category }}</td>
+                                        <td>
+                                            <div class="media-box">
+                                                <div class="media-box-body">
+                                                    <div class="text-truncate">{{ expense.description }}</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>3000</td>
-                                    <td>Romchi fuel stattion</td>
-                                    <td>Cash</td>
-                                    <td>
-                                        8:30am 20/09/24
-                                    </td>
-
-                                    <td>
-                                        <span class="badge shade-green min-90">Paid</span>
-                                    </td>
-
-
-                                    <td>
-                                        <div class="actions">
-
-                                            <button type="button" class="btn btn-light " data-bs-toggle="modal"
-                                                    data-bs-target="#editmodel" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Edit"><i
-                                                    class="bi bi-pencil-square text-green"></i></button>
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Delete" style="margin-left: 10px;"><i
-                                                    class="bi bi-trash text-white"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">PR03541</div>
+                                        </td>
+                                        <td>{{ expense.amount }}</td>
+                                        <td>{{ expense.vendor }}</td>
+                                        <td>{{ expense.payment_method }}</td>
+                                        <td>{{ expense.date }}</td>
+                                        <td>
+                                            {% if expense.status == 'Paid' %}
+                                                <span class="badge shade-green min-90">{{ expense.status }}</span>
+                                            {% elif expense.status == 'Pending' %}
+                                                <span class="badge shade-red min-90">{{ expense.status }}</span>
+                                            {% elif expense.status == 'Reimbursed' %}
+                                                <span class="badge shade-blue min-90">{{ expense.status }}</span>
+                                            {% else %}
+                                                <span class="badge">{{ expense.status }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <div class="actions">
+                                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                                        data-bs-target="#editmodel" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Edit"><i
+                                                        class="bi bi-pencil-square text-green"></i></button>
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Delete"
+                                                        style="margin-left: 10px;"><i
+                                                        class="bi bi-trash text-white"></i></button>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>Fuel</td>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">Buy Fuel</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>3000</td>
-                                    <td>Romchi fuel stattion</td>
-                                    <td>Bank Transfer</td>
-                                    <td>
-                                        8:30am 20/09/24
-                                    </td>
-
-                                    <td>
-                                        <span class="badge shade-red min-90">Pending</span>
-                                    </td>
-
-
-                                    <td>
-                                        <div class="actions">
-
-                                            <button type="button" class="btn btn-light " data-bs-toggle="modal"
-                                                    data-bs-target="#editmodel" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Edit"><i
-                                                    class="bi bi-pencil-square text-green"></i></button>
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Delete" style="margin-left: 10px;"><i
-                                                    class="bi bi-trash text-white"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">PR03541</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Fuel</td>
-                                    <td>
-                                        <div class="media-box">
-
-                                            <div class="media-box-body">
-                                                <div class="text-truncate">Buy Fuel</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>3000</td>
-                                    <td>Romchi fuel stattion</td>
-                                    <td>Cash</td>
-                                    <td>
-                                        8:30am 20/09/24
-                                    </td>
-
-                                    <td>
-                                        <span class="badge shade-blue min-90">reimbursed</span>
-                                    </td>
-
-
-                                    <td>
-                                        <div class="actions">
-
-                                            <button type="button" class="btn btn-light " data-bs-toggle="modal"
-                                                    data-bs-target="#editmodel" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Edit"><i
-                                                    class="bi bi-pencil-square text-green"></i></button>
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Delete" style="margin-left: 10px;"><i
-                                                    class="bi bi-trash text-white"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="9" class="text-center">No expenses found.</td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
-
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- Row end -->
-
-
     </div>
     <!-- Content wrapper end -->
 
