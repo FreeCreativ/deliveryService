@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import Sum
 
+from utils import generate_id
+
 
 class Staff(models.Model):
     ROLE_CHOICES = (
@@ -9,7 +11,7 @@ class Staff(models.Model):
         ('Staff', 'Staff'),
     )
     profile_image = models.ImageField(upload_to='images/profileImage')
-    staff_id = models.CharField(max_length=20)
+    staff_id = models.CharField(max_length=20, unique=True, default=generate_id())
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
     name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=15)
@@ -39,8 +41,13 @@ class Staff(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Only set a new value on creation
+            self.staff_id = generate_id()
+        super().save(*args, **kwargs)
+
     class Meta:
-        verbose_name_plural='Staff'
+        verbose_name_plural = 'Staff'
 
 
 class BusinessSetting(models.Model):
@@ -58,8 +65,9 @@ class BusinessSetting(models.Model):
 
     def __str__(self):
         return self.business_name
+
     class Meta:
-        verbose_name_plural='business setting'
+        verbose_name_plural = 'business setting'
 
 
 class Activity(models.Model):

@@ -1,21 +1,35 @@
-import random
-import string
-
 from django.db import models
 from django.db.models import Sum, Count, Max, Q
 
+from utils import generate_id
 
-def generate_id():
-    """Generate a random alphanumeric string of length 8 for the customerId"""
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+
+def switch_color(value):
+    match value:
+        case "Active":
+            return "green"
+        case 'Inactive':
+            return "red"
 
 
 class Customer(models.Model):
     customer_id = models.CharField(max_length=20, unique=True, default=generate_id())
     customer_name = models.CharField(max_length=100)
-    contact = models.CharField(max_length=15)
+    contact = models.CharField(max_length=15, unique=True)
     joined = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=10, blank=True, null=True)
+    status = models.CharField(max_length=10, blank=True, null=True, default='active', choices=[
+        ('Active', 'Active'),
+        ('Inactive', 'Inactive'),
+    ])
+
+    @property
+    def status_color(self):
+        return switch_color(self.status)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Only set a new value on creation
+            self.customer_id = generate_id()
+        super().save(*args, **kwargs)
 
     def get_order_summary(self):
         """
@@ -66,3 +80,6 @@ class Review(models.Model):
 
     def __str__(self):
         return f'Review by {self.customer} on {self.date}'
+
+    class Meta:
+        ordering = ('-date',)

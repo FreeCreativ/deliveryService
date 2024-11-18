@@ -1,15 +1,8 @@
-import random
-import string
-
 from django.db import models
 
 from business.models import Staff
+from utils import generate_id
 from .customer import Customer
-
-
-def generate_order_id():
-    """Generate a random alphanumeric string of length 8 for the customerId"""
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 
 
 def switch_color(value):
@@ -26,9 +19,9 @@ def switch_color(value):
 
 class Order(models.Model):
     rider = models.ForeignKey(Staff, null=True, blank=True, on_delete=models.SET_NULL)
-    customer = models.ForeignKey(Customer, blank=True, null=True, on_delete=models.CASCADE,
+    customer = models.ForeignKey(Customer, blank=True, null=True, on_delete=models.SET_NULL,
                                  related_query_name='customer')
-    order_id = models.CharField(max_length=20, unique=True, default=generate_order_id())
+    order_id = models.CharField(max_length=20, unique=True, default=generate_id())
     from_location = models.CharField(max_length=255)
     to_location = models.CharField(max_length=255)
     description = models.TextField()
@@ -50,6 +43,11 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.order_id} - {self.from_location} to {self.to_location}"
+
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Only set a new value on creation
+            self.order_id = generate_id()
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = ('-order_date',)

@@ -1,14 +1,7 @@
-import random
-import string
-
 from django.db import models
 
 from business.models import Staff
-
-
-def generate_id():
-    """Generate a random alphanumeric string of length 8 for the customerId"""
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+from utils import generate_id
 
 
 class Expense(models.Model):
@@ -38,6 +31,11 @@ class Expense(models.Model):
         ('Pending', 'Pending'),
         ('Reimbursed', 'Reimbursed'),
     ])
+
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Only set a new value on creation
+            self.expense_id = generate_id()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.expense_id
