@@ -28,6 +28,7 @@ class Order(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     order_type = models.CharField(max_length=20)
     order_date = models.DateTimeField(auto_now_add=True)
+    order_completed = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=20, blank=True, null=True, default='Pending', choices=[
         ('Pending', 'Pending'),
         ('Processing', 'Processing'),

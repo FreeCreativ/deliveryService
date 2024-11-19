@@ -1,8 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, TemplateView, DeleteView
+from django.views.generic import CreateView, TemplateView, DeleteView
+from django_filters.views import FilterView
 
+from service.filters import OrderFilter
 from service.forms import OrderForm, CustomerForm
 from service.models import Order, Customer
 
@@ -22,16 +24,13 @@ class AddOrderView(LoginRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
         # Instantiate the order form and customer form with POST data
         order_form = OrderForm(request.POST)
-        customer_form = CustomerForm(request.POST)
-        if customer_form.errors:
-            print(customer_form.errors)
-        if order_form.errors:
-            print(order_form.errors)
+        customer_form = CustomerForm()
 
         if order_form.is_valid():
 
             # Get the phone number from the customer form
-            phone_number = customer_form.cleaned_data.get('contact')
+            phone_number = request.POST['contact']
+            # phone_number = customer_form.cleaned_data.get('contact')
 
             # Check if customer with this phone number already exists
             existing_customer = Customer.objects.filter(contact=phone_number).first()
@@ -45,6 +44,7 @@ class AddOrderView(LoginRequiredMixin, CreateView):
 
             else:
                 # If no customer exists, save the new customer and the order
+                customer_form = CustomerForm(request.POST)
                 if customer_form.is_valid():
                     customer = customer_form.save()  # Save the new customer
                     order = order_form.save(commit=False)
@@ -63,10 +63,11 @@ class OrderSuccessView(TemplateView):
     template_name = 'service/order/order_success.html'
 
 
-class OrderListView(LoginRequiredMixin, ListView):
+class OrderListView(LoginRequiredMixin, FilterView):
     model = Order
     template_name = 'service/order/orders_list.html'
     context_object_name = 'orders'
+    filterset_class = OrderFilter
 
     def get_queryset(self):
         status_filter = self.request.GET.get('status', 'all')
@@ -89,6 +90,6 @@ class OrderListView(LoginRequiredMixin, ListView):
 
 
 class OrderDeleteView(LoginRequiredMixin, DeleteView):
-    model=Order
+    model = Order
     template_name = 'service/order/orders_delete.html'
     success_url = reverse_lazy('service:order_list')

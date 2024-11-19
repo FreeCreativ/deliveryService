@@ -560,43 +560,57 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="media-box">
+                                        {% for order in staff.order_set.all %}
+                                            <tr>
+                                                <td>
+                                                    <div class="media-box">
 
-                                                    <div class="media-box-body">
-                                                        <div class="text-truncate">PR03541</div>
+                                                        <div class="media-box-body">
+                                                            <div class="text-truncate">{{ order.order_id }}</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="media-box">
+                                                </td>
+                                                <td>
+                                                    <div class="media-box">
 
-                                                    <div class="media-box-body">
-                                                        <div class="text-truncate">natachi New Heaven</div>
+                                                        <div class="media-box-body">
+                                                            <div class="text-truncate">{{ order.from_location }}</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>Premier Layout</td>
-                                            <td>Buying of Food</td>
-                                            <td>#3000.00</td>
-                                            <td>
-                                                Errand
-                                            </td>
-                                            <td>
-                                                08:56am 10/04/2024
-                                            </td>
-                                            <td>
-                                                09:56am 10/04/2024
-                                            </td>
-                                            <td>
-                                                <span class="badge shade-green min-90">Delivered</span>
-                                            </td>
-                                            <td>
-                                                He really deliver it to my on time , thanks for your rider
-                                            </td>
-                                        </tr>
-
+                                                </td>
+                                                <td>{{ order.to_location }}</td>
+                                                <td>{{ order.description }}</td>
+                                                <td>{{ order.amount }}</td>
+                                                <td>
+                                                    {{ order.order_type }}
+                                                </td>
+                                                <td>
+                                                    {{ order.order_date }}
+                                                </td>
+                                                <td>
+                                                    {{ order.order_completed }}
+                                                </td>
+                                                <td>
+                                                    <span class="badge shade-green min-90">{{ order.status }}</span>
+                                                </td>
+                                                <td>
+                                                    He really deliver it to my on time , thanks for your rider
+                                                </td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td>No orders Recieved</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        {% endfor %}
                                         </tbody>
                                     </table>
 
