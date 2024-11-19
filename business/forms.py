@@ -6,7 +6,7 @@ from .models import Staff, BusinessSetting
 class StaffForm(forms.ModelForm):
     class Meta:
         model = Staff
-        fields = '__all__'
+        exclude = ('profile_image', 'staff_id')
 
 
 class BusinessSettingsForm(forms.ModelForm):

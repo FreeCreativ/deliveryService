@@ -21,7 +21,7 @@ class Order(models.Model):
     rider = models.ForeignKey(Staff, null=True, blank=True, on_delete=models.SET_NULL)
     customer = models.ForeignKey(Customer, blank=True, null=True, on_delete=models.SET_NULL,
                                  related_query_name='customer')
-    order_id = models.CharField(max_length=20, unique=True, default=generate_id())
+    order_id = models.CharField(max_length=20, unique=True)
     from_location = models.CharField(max_length=255)
     to_location = models.CharField(max_length=255)
     description = models.TextField()

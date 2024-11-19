@@ -13,7 +13,7 @@ def switch_color(value):
 
 
 class Customer(models.Model):
-    customer_id = models.CharField(max_length=20, unique=True, default=generate_id())
+    customer_id = models.CharField(max_length=20, unique=True)
     customer_name = models.CharField(max_length=100)
     contact = models.CharField(max_length=15, unique=True)
     joined = models.DateTimeField(auto_now_add=True)

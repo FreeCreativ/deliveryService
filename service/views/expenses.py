@@ -40,4 +40,4 @@ class AddExpenseView(LoginRequiredMixin, CreateView):
     model = Expense
     form_class = ExpenseForm
     template_name = 'service/expense/add_expense.html'
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('service:dashboard')

@@ -20,13 +20,13 @@
                                 <div class="card-border">
                                     <div class="card-border-title">Order Information</div>
                                     <div class="card-border-body">
-                                        <form id="registrationForm" method="post">
+                                        <form id="registrationForm" method="post" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <!-- Role Selection -->
                                             <div class="mb-4">
                                                 <label for="role" class="form-label">Select Role</label>
                                                 <select class="form-select" id="role" onchange="toggleVehicleInfo()"
-                                                        required>
+                                                        required name="role">
                                                     <option value="" disabled selected>Select Role</option>
                                                     <option value="rider">Rider</option>
                                                     <option value="staff">Staff</option>
@@ -40,43 +40,47 @@
                                                 <div class="mb-3">
                                                     <label for="fullName" class="form-label">Full Name</label>
                                                     <input type="text" class="form-control" id="fullName"
-                                                           placeholder="Enter full name" required>
+                                                           placeholder="Enter full name" required name="name">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label for="phoneNumber" class="form-label">Phone Number</label>
                                                     <input type="tel" class="form-control" id="phoneNumber"
-                                                           placeholder="Enter phone number" required>
+                                                           placeholder="Enter phone number" required
+                                                           name="phone_number">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label for="email" class="form-label">Email</label>
                                                     <input type="email" class="form-control" id="email"
-                                                           placeholder="Enter email" required>
+                                                           placeholder="Enter email" required name="email">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label for="address" class="form-label">Home Address</label>
                                                     <input type="text" class="form-control" id="address"
-                                                           placeholder="Enter home address" required>
+                                                           placeholder="Enter home address" required name="address">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="State of Origin" class="form-label">State Of
                                                         Origin</label>
                                                     <input type="text" class="form-control" id="address"
-                                                           placeholder="Enter state of Origin" required>
+                                                           placeholder="Enter state of Origin" required
+                                                           name="state_of_origin">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label for="dob" class="form-label">Date of Birth</label>
-                                                    <input type="date" class="form-control" id="dob" required>
+                                                    <input type="date" class="form-control" id="dob" required
+                                                           name="date_of_birth">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label for="emergencyContact" class="form-label">Emergency
                                                         Contact</label>
                                                     <input type="text" class="form-control" id="emergencyContact"
-                                                           placeholder="Enter emergency contact" required>
+                                                           placeholder="Enter emergency contact" required
+                                                           name="emergency_contact">
                                                 </div>
                                             </fieldset>
 
@@ -87,19 +91,21 @@
 
                                                 <div class="mb-3">
                                                     <label for="startDate" class="form-label">Start Date</label>
-                                                    <input type="date" class="form-control" id="startDate" required>
+                                                    <input type="date" class="form-control" id="startDate" required
+                                                           name="start_date">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label for="position" class="form-label">Position/Role</label>
                                                     <input type="text" class="form-control" id="position"
-                                                           placeholder="Enter position or role" required>
+                                                           placeholder="Enter position or role" required
+                                                           name="position">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label for="payRate" class="form-label">Pay Rate</label>
                                                     <input type="number" class="form-control" id="payRate"
-                                                           placeholder="Enter pay rate" required>
+                                                           placeholder="Enter pay rate" required name="pay_rate">
                                                 </div>
 
                                                 <div class="mb-3">
@@ -107,7 +113,7 @@
                                                         Details</label>
                                                     <input type="text" class="form-control" id="bankDetails"
                                                            placeholder="Enter bank account details for payroll"
-                                                           required>
+                                                           required name="{{ form.bank_details.name }}">
                                                 </div>
                                             </fieldset>
 
@@ -118,28 +124,32 @@
                                                 <div class="mb-3">
                                                     <label for="vehicleType" class="form-label">Vehicle Type</label>
                                                     <input type="text" class="form-control" id="vehicleType"
-                                                           placeholder="Enter vehicle type" required>
+                                                           placeholder="Enter vehicle type" required
+                                                           name="vehicle_type">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label for="vehicleRegNumber" class="form-label">Vehicle
                                                         Registration Number</label>
                                                     <input type="text" class="form-control" id="vehicleRegNumber"
-                                                           placeholder="Enter vehicle registration number" required>
+                                                           placeholder="Enter vehicle registration number" required
+                                                           name="vehicle_reg_number">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label for="insuranceDetails" class="form-label">Insurance
                                                         Details</label>
                                                     <input type="text" class="form-control" id="insuranceDetails"
-                                                           placeholder="Enter vehicle insurance details" required>
+                                                           placeholder="Enter vehicle insurance details" required
+                                                           name="insurance_details">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label for="driverLicense" class="form-label">Driver’s
                                                         License</label>
                                                     <input type="text" class="form-control" id="driverLicense"
-                                                           placeholder="Enter driver’s license number" required>
+                                                           placeholder="Enter driver’s license number" required
+                                                           name="driver_license">
                                                 </div>
                                             </fieldset>
 
@@ -150,7 +160,7 @@
                                                     <label for="staffAgreement" class="form-label">Staff Agreement
                                                         Document</label>
                                                     <input type="file" class="form-control" id="staffAgreement"
-                                                           accept=".pdf,.doc,.docx" required>
+                                                           accept=".pdf,.doc,.docx" required name="staff_agreement">
                                                     <small class="form-text text-muted">Upload the staff agreement in
                                                         PDF or Word format.</small>
                                                 </div>
@@ -159,7 +169,8 @@
                                                     <label for="verificationDocument" class="form-label">Means of
                                                         Verification Document</label>
                                                     <input type="file" class="form-control" id="verificationDocument"
-                                                           accept=".pdf,.doc,.docx" required>
+                                                           accept=".pdf,.doc,.docx" required
+                                                           name="verification_document">
                                                     <small class="form-text text-muted">Upload a document for means of
                                                         verification (e.g., ID, certificate).</small>
                                                 </div>
