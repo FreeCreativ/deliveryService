@@ -3,8 +3,8 @@ from django.views.generic import TemplateView
 
 from service.models import Order, Expense
 from .orders import AddOrderView, OrderListView, OrderSuccessView, OrderDeleteView
-from .customers import CustomerListView
-from .expenses import AddExpenseView, ExpensesView
+from .customers import CustomerListView, CustomerDeleteView
+from .expenses import ExpenseCreateView, ExpenseListView, ExpenseUpdateView, ExpenseDeleteView
 from .review import ReviewListView
 
 
@@ -26,3 +26,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             'recent_expenses': Expense.objects.all()[:5],
         })
         return context
+
+
+class SupportVIew(TemplateView):
+    template_name = 'service/support.html'

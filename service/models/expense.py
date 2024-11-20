@@ -4,6 +4,16 @@ from business.models import Staff
 from utils import generate_id
 
 
+def switch_color(value):
+    match value:
+        case "Paid'":
+            return "green"
+        case 'Pending':
+            return "yellow"
+        case 'Reimbursed':
+            return "red"
+
+
 class Expense(models.Model):
     CATEGORY_CHOICES = [
         ('Fuel', 'Fuel'),
@@ -31,6 +41,10 @@ class Expense(models.Model):
         ('Pending', 'Pending'),
         ('Reimbursed', 'Reimbursed'),
     ])
+
+    @property
+    def status_color(self):
+        return switch_color(self.status)
 
     def save(self, *args, **kwargs):
         if not self.pk:  # Only set a new value on creation

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    - Role Permissions
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper-scroll">
+
+        <!-- Content wrapper start -->
+        <div class="content-wrapper">
+
+            <!-- Row start -->
+            <!-- Row start -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">All Roles</div>
+                            <a href="Add-role.php">
+
+                                <button type="button" class="btn btn-info"><i class="bi bi-plus-square"></i> Add
+                                </button>
+                            </a>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table id="" class="  table v-middle">
+                                    <thead>
+                                    <tr>
+                                        <th>Role</th>
+
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+
+                                        <td>Admin</td>
+
+
+                                    </tr>
+                                    <tr>
+
+                                        <td>Dispacher</td>
+
+                                        <td>
+                                            <a href="edit-role.php">
+                                                <button type="button" class="btn btn-primary"><i
+                                                        class="bi bi-pencil-square"></i> Edit
+                                                </button>
+                                            </a>
+                                            <button type="button" class="btn btn-danger"><i
+                                                    class="bi bi-trash-fill"></i>
+                                                Delete
+                                            </button>
+                                        </td>
+
+
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <a href="orders.php">
+
+                                <button type="button" class="btn btn-info"> View Reports</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+            <!-- Row end -->
+
+        </div>
+        <!-- Content wrapper end -->
+
+    
+{% endblock %}

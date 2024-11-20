@@ -1,19 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import FormView, CreateView, ListView, DetailView, DeleteView, UpdateView
+from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
 
-from .forms import BusinessSettingsForm
-from .models import Staff
-
-
-class BusinessSettingView(LoginRequiredMixin, FormView):
-    form_class = BusinessSettingsForm
-    template_name = 'business/business_setting.html'
-    success_url = reverse_lazy('service:dashboard')
-
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+from business.models import Staff
 
 
 class StaffCreateView(LoginRequiredMixin, CreateView):

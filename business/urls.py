@@ -1,6 +1,6 @@
 from django.urls import path, include
 from .views import BusinessSettingView, StaffDeleteView, StaffDetailView, StaffListView, StaffCreateView, \
-    StaffUpdateView
+    StaffUpdateView, RolePermissionsView
 
 app_name = 'business'
 
@@ -13,5 +13,6 @@ staff = [
 ]
 urlpatterns = [
     path('staff/', include(staff)),
+    path('role-permission/', RolePermissionsView.as_view(), name='role_permission'),
     path('settings/', BusinessSettingView.as_view(), name='settings'),
 ]

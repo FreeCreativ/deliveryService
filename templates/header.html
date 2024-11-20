@@ -65,10 +65,10 @@
                         <div class="sidebar-submenu">
                             <ul>
                                 <li>
-                                    <a href="{% url 'service:expenses' %}">Expenses History</a>
+                                    <a href="{% url 'service:expense-list' %}">Expenses History</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'service:add_expense' %}">Add Expenses</a>
+                                    <a href="{% url 'service:expense_add' %}">Add Expenses</a>
                                 </li>
                             </ul>
                         </div>
@@ -118,7 +118,7 @@
                                     <a href="{% url 'business:settings' %}">Business Settings</a>
                                 </li>
                                 <li>
-                                    <a href="role-permission.php"> Roles and Permission</a>
+                                    <a href="{% url 'business:role_permission' %}"> Roles and Permission</a>
                                 </li>
                                 <li>
                                     <a href="user-management.php">User Management</a>
@@ -134,7 +134,7 @@
 
                 <ul style="margin-top:40px">
                     <li>
-                        <a href="support.php">
+                        <a href="{% url 'service:support' %}">
                             <i class="bi bi-headphones"></i>
                             <span class="menu-text">Support</span>
                         </a>
@@ -182,7 +182,7 @@
                         <button type="button" class="btn btn-info"><i class="bi bi-plus-square"></i> Add New Order
                         </button>
                     </a>
-                    <a href="{% url 'service:add_expense' %}">
+                    <a href="{% url 'service:expense_add' %}">
                         <button type="button" class="btn btn-danger"><i class="bi bi-plus-square"></i> Add New Expense
                         </button>
                     </a>
