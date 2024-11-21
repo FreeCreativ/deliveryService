@@ -2,7 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
 from service.models import Order, Expense
-from .orders import AddOrderView, OrderListView, OrderSuccessView, OrderDeleteView
+from .orders import OrderCreateView, OrderListView, OrderSuccessView, OrderDeleteView, OrderCancelUpdateView, \
+    OrderCompleteUpdateView
 from .customers import CustomerListView, CustomerDeleteView
 from .expenses import ExpenseCreateView, ExpenseListView, ExpenseUpdateView, ExpenseDeleteView
 from .review import ReviewListView

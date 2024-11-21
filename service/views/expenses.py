@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django_filters.views import FilterView
@@ -14,29 +13,6 @@ class ExpenseListView(LoginRequiredMixin, FilterView):
     model = Expense
     context_object_name = 'expenses'
     filterset_class = ExpenseFilter
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['entry_form'] = ExpenseForm()  # Empty form for displaying
-        return context
-
-    def post(self, request, *args, **kwargs):
-        # Handling update form submission
-        if 'update_expense' in request.POST:
-            expense_id = request.POST.get('expense_id')
-            expense = get_object_or_404(Expense, id=expense_id)
-            form = ExpenseForm(request.POST, instance=expense)
-            if form.is_valid():
-                form.save()
-                return redirect('service:expense-list')
-            # Handling delete form submission
-        elif 'delete_expense' in request.POST:
-            order_id = request.POST.get('entry_id')
-            order = get_object_or_404(Expense, id=order_id)
-            order.delete()
-            return redirect('service:expense-list')
-
-        return super().get(request, *args, **kwargs)
 
 
 class ExpenseUpdateView(LoginRequiredMixin, UpdateView):

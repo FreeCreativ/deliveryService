@@ -29,6 +29,11 @@ class Order(models.Model):
     order_type = models.CharField(max_length=20)
     order_date = models.DateTimeField(auto_now_add=True)
     order_completed = models.DateTimeField(auto_now=True)
+    payment_method = models.CharField(max_length=20, default='Cash', blank=True, null=True, choices=[
+        ('Cash', 'Cash'),
+        ('Transfer', 'Transfer'),
+        ('POS', 'POS')
+    ])
     status = models.CharField(max_length=20, blank=True, null=True, default='Pending', choices=[
         ('Pending', 'Pending'),
         ('Processing', 'Processing'),

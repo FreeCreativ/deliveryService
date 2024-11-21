@@ -1,15 +1,17 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView, DeleteView
+from django.views.generic import CreateView, TemplateView, DeleteView, UpdateView
+from django.views.generic.base import ContextMixin
 from django_filters.views import FilterView
 
+from business.models import Staff
 from service.filters import OrderFilter
 from service.forms import OrderForm, CustomerForm
 from service.models import Order, Customer
 
 
-class AddOrderView(LoginRequiredMixin, CreateView):
+class OrderCreateView(LoginRequiredMixin, CreateView):
     template_name = 'service/order/add_order.html'
     model = Order
     form_class = OrderForm
@@ -68,28 +70,33 @@ class OrderListView(LoginRequiredMixin, FilterView):
     template_name = 'service/order/orders_list.html'
     context_object_name = 'orders'
     filterset_class = OrderFilter
-
-    def get_queryset(self):
-        status_filter = self.request.GET.get('status', 'all')
-        if status_filter != 'all':
-            return Order.objects.filter(status=status_filter)
-        return Order.objects.all()
-
-    def post(self, request, *args, **kwargs):
-        order_id = request.POST.get('order_id')
-        order = get_object_or_404(Order, id=order_id)
-
-        if 'complete_order' in request.POST:
-            order.status = 'completed'
-        elif 'cancel_order' in request.POST:
-            reason = request.POST.get('reason')
-            order.status = 'cancelled'
-            order.description += f"\nCancelled: {reason}"
-        order.save()
-        return redirect('service:order_list')
+    riders = Staff.objects.filter(role='Rider')
+    extra_context = {'riders': riders}
 
 
 class OrderDeleteView(LoginRequiredMixin, DeleteView):
     model = Order
     template_name = 'service/order/orders_delete.html'
     success_url = reverse_lazy('service:order_list')
+    slug_url_kwarg = 'order_id'
+    slug_field = 'order_id'
+
+
+class OrderCompleteUpdateView(LoginRequiredMixin, UpdateView):
+    model = Order
+    template_name = 'service/order/orders_update.html'
+    context_object_name = 'order'
+    success_url = reverse_lazy('service:order_list')
+    slug_url_kwarg = 'order_id'
+    slug_field = 'order_id'
+    fields = ['status', 'rider']
+
+
+class OrderCancelUpdateView(LoginRequiredMixin, UpdateView):
+    model = Order
+    template_name = 'service/order/orders_update.html'
+    context_object_name = 'order'
+    success_url = reverse_lazy('service:order_list')
+    slug_url_kwarg = 'order_id'
+    slug_field = 'order_id'
+    fields = ['status', 'cancel_reason']

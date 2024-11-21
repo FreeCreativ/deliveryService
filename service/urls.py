@@ -2,8 +2,8 @@ from django.urls import path, include
 
 from .views import (
     ReviewListView, OrderListView, ExpenseListView, CustomerListView, DashboardView,
-    AddOrderView, ExpenseCreateView, OrderSuccessView, OrderDeleteView, CustomerDeleteView, SupportVIew,
-    ExpenseDeleteView, ExpenseUpdateView
+    OrderCreateView, ExpenseCreateView, OrderSuccessView, OrderDeleteView, CustomerDeleteView, SupportVIew,
+    ExpenseDeleteView, ExpenseUpdateView, OrderCompleteUpdateView, OrderCancelUpdateView
 )
 
 app_name = 'service'
@@ -14,9 +14,11 @@ customer_patterns = [
 ]
 order_patterns = [
     path('', OrderListView.as_view(), name='order_list'),
-    path('new/', AddOrderView.as_view(), name='add_order'),
+    path('new/', OrderCreateView.as_view(), name='add_order'),
     path('success/', OrderSuccessView.as_view(), name='order_success'),
-    path('<orderId>/delete', OrderDeleteView.as_view(), name='order_delete'),
+    path('<order_id>/delete', OrderDeleteView.as_view(), name='order_delete'),
+    path('<order_id>/complete', OrderCompleteUpdateView.as_view(), name='order_complete'),
+    path('<order_id>/cancel', OrderCancelUpdateView.as_view(), name='order_cancel'),
 ]
 expense_patterns = [
     path('', ExpenseListView.as_view(), name='expense-list'),

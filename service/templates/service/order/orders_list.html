@@ -86,266 +86,311 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="media-box">
+                                    {% for order in orders %}
+                                        <tr>
+                                            <td>
+                                                <div class="media-box">
 
-                                                <div class="media-box-body">
-                                                    <div class="text-truncate">PR03541</div>
+                                                    <div class="media-box-body">
+                                                        <div class="text-truncate">{{ order.order_id }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="media-box">
+
+                                                    <div class="media-box-body">
+                                                        <div class="text-truncate">{{ order.from_location }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{ order.to_location }}</td>
+                                            <td>{{ order.description }}</td>
+                                            <td>#{{ order.amount }}</td>
+                                            <td>
+                                                {{ order.order_type }}
+                                            </td>
+                                            <td>
+                                                {{ order.order_date }}
+                                            </td>
+
+                                            <td>
+                                                <span class="badge shade-{{ order.status_color }} min-90">{{ order.status }}</span>
+                                            </td>
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="#" class="viewRow" data-bs-toggle="modal"
+                                                       data-bs-target="#modalDark{{ order.order_id }}"
+                                                       data-bs-toggle="tooltip" data-bs-placement="top"
+                                                       title="Complete Order">
+                                                        <i class="bi bi-send-check-fill text-green"></i>
+                                                    </a>
+                                                    <a href="#" class="viewRow" data-bs-toggle="modal"
+                                                       data-bs-target="#modalReason{{ order.order_id }}"
+                                                       data-bs-toggle="tooltip" data-bs-placement="top"
+                                                       title="Cancel Order">
+                                                        <i class="bi bi-x-octagon-fill text-red"></i>
+                                                    </a>
+                                                    <a href="#" class="viewRow" data-bs-toggle="modal"
+                                                       data-bs-target="#scrollable{{ order.order_id }}"
+                                                       data-bs-toggle="tooltip" data-bs-placement="top"
+                                                       title="View Order">
+                                                        <i class="bi bi-list text-dark"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!--Complete section-->
+                                        <div class="modal fade" id="modalDark{{ order.order_id }}" tabindex="-1"
+                                             aria-labelledby="modalDarkLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalDarkLabel">Complete Order</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <form method="post"
+                                                          action="{% url 'service:order_complete' order.order_id %}">
+                                                        {% csrf_token %}
+                                                        <div class="modal-body">
+
+                                                            <div class="card-body">
+                                                                <div class="m-0">
+                                                                    <label class="form-label"
+                                                                           for="selectRider{{ order.order_id }}">Rider
+                                                                        Info</label>
+                                                                    <select name="rider" class="form-control"
+                                                                            id="selectRider{{ order.order_id }}">
+                                                                        <option value="" selected>Select a
+                                                                            Rider
+                                                                        </option>
+                                                                        {% for rider in riders %}
+                                                                            <option value="{{ rider.rider_id }}">{{ rider.name }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                    <input type="hidden" name="status"
+                                                                           value="Delivered">
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-dark"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="submit" class="btn btn-success"
+                                                                    data-bs-dismiss="modal">Complete Order
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div class="media-box">
+                                        </div>
+                                        <!--end-->
 
-                                                <div class="media-box-body">
-                                                    <div class="text-truncate">natachi New Heaven</div>
+                                        <!--Cancel Order-->
+                                        <div class="modal fade" id="modalReason{{ order.order_id }}" tabindex="-1"
+                                             aria-labelledby="modalDarkLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalDarkLabel">Reason for Order
+                                                            Cancellation</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{% url 'service:order_cancel' order.order_id %}"
+                                                          method="post">
+                                                        {% csrf_token %}
+                                                        <div class="modal-body">
+
+                                                            <div class="card-body">
+                                                                <div class="m-0">
+                                                                    <label class="form-label">Why Do You Want to Cancel
+                                                                        the Order?</label>
+                                                                    <input type="text" class="form-control"
+                                                                           placeholder="Enter your Reason"
+                                                                           name="cancel_reason">
+                                                                </div>
+                                                                <input type="hidden" name="status" value="Cancelled">
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-dark"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="submit" class="btn btn-danger"
+                                                                    data-bs-dismiss="modal">Cancel Order
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
-                                        </td>
-                                        <td>Premier Layout</td>
-                                        <td>Buying of Food</td>
-                                        <td>#3000.00</td>
-                                        <td>
-                                            Errand
-                                        </td>
-                                        <td>
-                                            08:56 am
-                                        </td>
+                                        </div>
+                                        <!--end-->
 
-                                        <td>
-                                            <span class="badge shade-green min-90">Delivered</span>
-                                        </td>
-                                        <td>
-                                            <div class="actions">
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#modalDark"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   title="Complete Order">
-                                                    <i class="bi bi-send-check-fill text-green"></i>
-                                                </a>
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#modalReason"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   title="Cancel Order">
-                                                    <i class="bi bi-x-octagon-fill text-red"></i>
-                                                </a>
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#scrollable"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
-                                                    <i class="bi bi-list text-dark"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="media-box">
+                                        <div class="modal fade" id="scrollable{{ order.order_id }}"
+                                             data-bs-backdrop="static"
+                                             data-bs-keyboard="false" tabindex="-1"
+                                             aria-labelledby="scrollableLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" style="border-bottom: 1px #ddd solid;">
+                                                        <h5 class="modal-title" id="scrollableLabel">Order ID :
+                                                            {{ order.order_id }}</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>From</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.from_location }}
+                                                            </p>
+                                                        </div>
 
-                                                <div class="media-box-body">
-                                                    <div class="text-truncate">ERT394</div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>To</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.to_location }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Order Type</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.order_type }}
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Amount</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                #{{ order.amount }}
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Description</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.description }}
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Payment Method</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.payment_method }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Order Placed</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.order_date }}
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>completed At </p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {% if order.status == 'Delivered' %}
+                                                                    {{ order.order_completed }}
+                                                                {% else %}
+                                                                    Incomplete
+                                                                {% endif %}
+                                                            </p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Status</p>
+                                                            </div>
+                                                            <p class="ml-auto badge shade-{{ order.status_color }} min-90">
+                                                                {{ order.status }}
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Customer Name </p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.customer.customer_name }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Customer phone </p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.customer.contact }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Rider Name </p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {% if order.status == 'Delivered' %}
+                                                                    {{ order.rider.name }}
+                                                                {% else %}
+                                                                    Rider Unassigned
+                                                                {% endif %}
+                                                            </p>
+                                                        </div>
+                                                        <!-- If the ordr is been canceled instead of showing rider name it will show reason why it cancel
+                                                            <div class="d-flex justify-content-between">
+                                                                <div>
+                                                                    <p>Reason for Cancellation</p>
+                                                                </div>
+                                                                <p class="ml-auto">
+                                                               The price to much
+                                                        </p>
+                                                            </div>
+                                                            -->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-dark"
+                                                                data-bs-dismiss="modal">Close
+                                                        </button>
+
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div class="media-box">
+                                        </div>
+                                        <!--end-->
 
-                                                <div class="media-box-body">
-                                                    <div class="text-truncate">Mimikin Shop,Ogbete</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>Thinkers Conner</td>
-                                        <td>Pickup cream and perfume</td>
-                                        <td>#4000.00</td>
-                                        <td>
-                                            Pickup
-                                        </td>
-                                        <td>
-                                            08:56 am
-                                        </td>
 
-                                        <td>
-                                            <span class="badge shade-red min-90">Cancelled</span>
-                                        </td>
-                                        <td>
-                                            <div class="actions">
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#modalDark"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   title="Complete Order">
-                                                    <i class="bi bi-send-check-fill text-green"></i>
-                                                </a>
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#modalReason"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   title="Cancel Order">
-                                                    <i class="bi bi-x-octagon-fill text-red"></i>
-                                                </a>
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#scrollable"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
-                                                    <i class="bi bi-list text-dark"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="media-box">
 
-                                                <div class="media-box-body">
-                                                    <div class="text-truncate">PR03541</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media-box">
-
-                                                <div class="media-box-body">
-                                                    <div class="text-truncate">natachi New Heaven</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>Premier Layout</td>
-                                        <td>Buying of Food</td>
-                                        <td>#3000.00</td>
-                                        <td>
-                                            Waybill
-                                        </td>
-                                        <td>
-                                            08:56 am
-                                        </td>
-
-                                        <td>
-                                            <span class="badge shade-blue min-90">Processing</span>
-                                        </td>
-                                        <td>
-                                            <div class="actions">
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#modalDark"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   title="Complete Order">
-                                                    <i class="bi bi-send-check-fill text-green"></i>
-                                                </a>
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#modalReason"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   title="Cancel Order">
-                                                    <i class="bi bi-x-octagon-fill text-red"></i>
-                                                </a>
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#scrollable"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
-                                                    <i class="bi bi-list text-dark"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="media-box">
-
-                                                <div class="media-box-body">
-                                                    <div class="text-truncate">PR03541</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media-box">
-
-                                                <div class="media-box-body">
-                                                    <div class="text-truncate">natachi New Heaven</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>Premier Layout</td>
-                                        <td>Buying of Food</td>
-                                        <td>#3000.00</td>
-                                        <td>
-                                            Errand
-                                        </td>
-                                        <td>
-                                            08:56 am
-                                        </td>
-
-                                        <td>
-                                            <span class="badge shade-green min-90">Delivered</span>
-                                        </td>
-                                        <td>
-                                            <div class="actions">
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#modalDark"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   title="Complete Order">
-                                                    <i class="bi bi-send-check-fill text-green"></i>
-                                                </a>
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#modalReason"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   title="Cancel Order">
-                                                    <i class="bi bi-x-octagon-fill text-red"></i>
-                                                </a>
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#scrollable"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
-                                                    <i class="bi bi-list text-dark"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="media-box">
-
-                                                <div class="media-box-body">
-                                                    <div class="text-truncate">ERT394</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="media-box">
-
-                                                <div class="media-box-body">
-                                                    <div class="text-truncate">Mimikin Shop,Ogbete</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>Thinkers Conner</td>
-                                        <td>Pickup cream and perfume</td>
-                                        <td>#4000.00</td>
-                                        <td>
-                                            Pickup
-                                        </td>
-                                        <td>
-                                            08:56 am
-                                        </td>
-
-                                        <td>
-                                            <span class="badge shade-red min-90">Cancelled</span>
-                                        </td>
-                                        <td>
-                                            <div class="actions">
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#modalDark"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   title="Complete Order">
-                                                    <i class="bi bi-send-check-fill text-green"></i>
-                                                </a>
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#modalReason"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top"
-                                                   title="Cancel Order">
-                                                    <i class="bi bi-x-octagon-fill text-red"></i>
-                                                </a>
-                                                <a href="#" class="viewRow" data-bs-toggle="modal"
-                                                   data-bs-target="#scrollable"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" title="View Order">
-                                                    <i class="bi bi-list text-dark"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td>No orders found</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
 
                                     </tbody>
                                 </table>
@@ -358,194 +403,5 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="scrollable" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="scrollableLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header" style="border-bottom: 1px #ddd solid;">
-                    <h5 class="modal-title" id="scrollableLabel">Order ID : WESTD5547</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>From</p>
-                        </div>
-                        <p class="ml-auto">
-                            Ntachi Osa New Heaven
-                        </p>
-                    </div>
 
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>To</p>
-                        </div>
-                        <p class="ml-auto">
-                            Back of Goshon Premier Layout
-                        </p>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>Order Type</p>
-                        </div>
-                        <p class="ml-auto">
-                            Errand
-                        </p>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>Amount</p>
-                        </div>
-                        <p class="ml-auto">
-                            #3,000.00
-                        </p>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>Description</p>
-                        </div>
-                        <p class="ml-auto">
-                            Buy white rice with panga stew with 2 meat
-                        </p>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>Payment Method</p>
-                        </div>
-                        <p class="ml-auto">
-                            Bank Transfer
-                        </p>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>Order Placed</p>
-                        </div>
-                        <p class="ml-auto">
-                            11:14am 10/03/2024
-                        </p>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>completed At </p>
-                        </div>
-                        <p class="ml-auto">
-                            12:14am 10/03/2024
-                        </p>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>Status</p>
-                        </div>
-                        <p class="ml-auto badge shade-green min-90">
-                            Deliverd
-                        </p>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>Customer Name </p>
-                        </div>
-                        <p class="ml-auto">
-                            Samuel
-                        </p>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>Customer phone </p>
-                        </div>
-                        <p class="ml-auto">
-                            09038013267
-                        </p>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>Rider Name </p>
-                        </div>
-                        <p class="ml-auto">
-                            Stanly
-                        </p>
-                    </div>
-                    <!-- If the ordr is been canceled instead of showing rider name it will show reason why it cancel
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <p>Reason for Cancellation</p>
-                            </div>
-                            <p class="ml-auto">
-                           The price to much
-                    </p>
-                        </div>
-                        -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--end-->
-
-
-    <!--Complete section-->
-    <div class="modal fade" id="modalDark" tabindex="-1" aria-labelledby="modalDarkLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalDarkLabel">Complete Order</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form>
-                    <div class="modal-body">
-
-                        <div class="card-body">
-                            <div class="m-0">
-                                <label class="form-label">Rider Info</label>
-                                <input type="text" class="form-control" placeholder="Enter Rider name or ID">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Complete Order</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--end-->
-
-
-    <!--Cancel Order-->
-    <div class="modal fade" id="modalReason" tabindex="-1" aria-labelledby="modalDarkLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalDarkLabel">Reason for Order Cancellation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form>
-                    <div class="modal-body">
-
-                        <div class="card-body">
-                            <div class="m-0">
-                                <label class="form-label">Why Do You Want to Cancel the Order?</label>
-                                <input type="text" class="form-control" placeholder="Enter your Reason">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Cancel Order</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--end-->
 {% endblock %}
