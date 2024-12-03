@@ -50,11 +50,6 @@ INSTALLED_APPS = [
     'business.apps.BusinessConfig',
     'django_extensions',
 ]
-AUTHENTICATION_BACKENDS = [
-    'yourapp.backends.UsernameOrEmailBackend',  # Custom backend
-    'django.contrib.auth.backends.ModelBackend',  # Default backend
-]
-0
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
