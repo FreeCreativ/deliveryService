@@ -19,3 +19,11 @@ class BusinessSettingView(LoginRequiredMixin, FormView):
 
 class RolePermissionsView(LoginRequiredMixin, TemplateView):
     template_name = 'business/role_permissions.html'
+
+
+class UserManagementView(LoginRequiredMixin, TemplateView):
+    template_name = 'business/user_management.html'
+
+
+class SecuritySettings(LoginRequiredMixin, TemplateView):
+    template_name = 'business/user_management.html'

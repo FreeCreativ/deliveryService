@@ -1,0 +1,219 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Meta -->
+    <meta name="description" content="Arise - Responsive Bootstrap 5 Dashboard Template">
+    <meta name="author" content="Bootstrap Gallery">
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.svg' %}">
+
+    <!-- Title -->
+    <title>Pariti Delivery Service - Signup</title>
+
+
+    <!-- *************
+        ************ Common Css Files *************
+    ************ -->
+
+    <!-- Animated css -->
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+
+    <!-- Bootstrap font icons css -->
+    <link rel="stylesheet" href="{% static 'assets/fonts/bootstrap/bootstrap-icons.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'assets/css/main.min.css' %}">
+
+    <style>
+        input:autofill, input:autofill:hover {
+            none;
+            -webkit-text-fill-color: none;
+            box-shadow: none
+        }
+
+        .login-container {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="login-container">
+
+<!-- Loading wrapper start -->
+<!-- <div id="loading-wrapper">
+    <div class="spinner">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+        <div class="line4"></div>
+        <div class="line5"></div>
+        <div class="line6"></div>
+    </div>
+</div> -->
+<!-- Loading wrapper end -->
+
+<!-- Login box start -->
+<form id="registrationForm">
+    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"> <!-- CSRF Token -->
+    <div class="login-box">
+        <div class="login-form">
+            <a href="dashboard/index.php" class="login-logo">
+                <img src="{% static 'assets/images/logo.svg' %}" alt="Vico Admin"/>
+            </a>
+            <div class="login-welcome">
+                Welcome back, <br/>Pariti Delivery Service
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="mb-3">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="fname" required>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div class="mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" name="lname" required>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="mb-3">
+                        <label class="form-label">Company Name</label>
+                        <input type="text" class="form-control" name="cname" id="companyName" required>
+                        <span class="error-message" style="color:red;" id="companyError"></span>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" required>
+                        <span class="error-message" style="color:red;" id="emailError"></span>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" name="pwd" id="password" required>
+                        <span class="error-message" style="color:red;" id="passwordError"></span>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="mb-3">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" name="cPwd" id="confirmPassword" required>
+                        <span class="error-message" style="color:red;" id="confirmPasswordError"></span>
+                    </div>
+                </div>
+
+                <div class="login-form-actions">
+                    <button type="submit" class="btn">
+                        <span class="icon"><i class="bi bi-arrow-right-circle"></i></span> Signup
+                    </button>
+                </div>
+                <div class="login-form-footer">
+                    <div class="additional-link">
+                        Already have an account? <a href="{% url 'login' %}">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#registrationForm').on('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Clear previous error messages
+            $('#emailError').text('');
+            $('#companyError').text('');
+            $('#passwordError').text('');
+            $('#confirmPasswordError').text('');
+
+            // Get form data
+            var password = $('#password').val();
+            var confirmPassword = $('#confirmPassword').val();
+            var formData = $(this).serialize();
+
+            // Client-side validation for passwords
+            var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/; // At least 8 chars, 1 uppercase, 1 lowercase, 1 number, and 1 special char
+            var errors = false;
+
+            // Password validation
+            if (!passwordPattern.test(password)) {
+                $('#passwordError').text("Password must be at least 8 characters, contain an uppercase letter, a lowercase letter, a number, and a special character.");
+                errors = true;
+            }
+
+            // Confirm password validation
+            if (password !== confirmPassword) {
+                $('#confirmPasswordError').text("Passwords do not match.");
+                errors = true;
+            }
+
+            if (!errors) {
+                // If no errors, make an AJAX POST request
+                $.ajax({
+                    url: 'function/signup.php', // Your PHP file to handle the form submission
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json', // Expecting a JSON response
+                    success: function (response) {
+                        console.log(response); // Log the response for debugging
+                        if (response.success) {
+                            // Handle success (e.g., redirect or show a success message)
+                            alert(response.message);
+                        } else {
+                            // Display error messages from server response
+                            if (response.errors.email) {
+                                $('#emailError').text(response.errors.email);
+                            }
+                            if (response.errors.company) {
+                                $('#companyError').text(response.errors.company);
+                            }
+                            if (response.errors.general) {
+                                alert(response.errors.general); // Display general error if any
+                            }
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText); // Log error for debugging
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+
+<!-- Login box end -->
+
+<!-- *************
+    ************ Required JavaScript Files *************
+************* -->
+<!-- Required jQuery first, then Bootstrap Bundle JS -->
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/modernizr.js' %}"></script>
+<script src="{% static 'assets/js/moment.js' %}"></script>
+
+<!-- *************
+    ************ Vendor Js Files *************
+************* -->
+
+<!-- Main Js Required -->
+<script src="{% static 'assets/js/main.js' %}"></script>
+
+
+</body>
+
+</html>
