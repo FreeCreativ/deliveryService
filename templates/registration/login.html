@@ -30,11 +30,14 @@
     <link rel="stylesheet" href="{% static 'assets/css/main.min.css' %}">
 
     <style>
-        input:autofill, input:autofill:hover {
-            none;
-            -webkit-text-fill-color: none;
-            box-shadow: none;
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus {
+            -webkit-text-fill-color: inherit; /* Match the input text color */
+            box-shadow: 0 0 0px 1000px white inset; /* Background color */
+            transition: background-color 5000s ease-in-out 0s; /* Prevent flashing */
         }
+
 
         .login-container {
             display: block;
