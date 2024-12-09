@@ -1,6 +1,9 @@
+asgiref
 Django
-python-dotenv
-pillow
-django-filter
 django-extensions
+django-filter
+django-shortcuts
+pillow
 PyMySQL
+python-dotenv
+sqlparse
