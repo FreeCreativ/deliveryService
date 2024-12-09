@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+import pymysql
+
+pymysql.install_as_MySQLdb()
 
 import os
 from pathlib import Path
@@ -17,6 +20,17 @@ from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
+
+CSRF_TRUSTED_ORIGINS = ['https://tochi-project.com']
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+#
+# ADMINS = [('Admin Name', 'admin_email@example.com')]
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,12 +39,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Get SECRET_KEY from environment variable
 if not DEBUG:
-    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+    SECRET_KEY = os.getenv('SECRET_KEY')
 else:
     SECRET_KEY = '8#*ioe#7i8duvsvs&zvar=fw72n320rzq&k5876$h0+76_cqn6'
 
@@ -38,7 +52,7 @@ else:
 if not SECRET_KEY:
     raise ValueError("SECRET_KEY environment variable not set!")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tochi-project.com/']
 
 # Application definition
 
@@ -87,13 +101,24 @@ WSGI_APPLICATION = 'deliveryService.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'tochiproject_deliveryService',
+            'USER': 'tochiproject_Tochukwu',
+            'PASSWORD': 'n77"sdJaf*Y,ZEf',
+            'HOST': 'localhost',
+            'PORT': '3306',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -129,6 +154,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / "media"
@@ -137,24 +163,6 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# import os
-#
-# SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "your-default-secret-key")
-# DEBUG = False
-# ALLOWED_HOSTS = ['yourdomain.com']
-#
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# X_FRAME_OPTIONS = 'DENY'
-#
-# CSRF_TRUSTED_ORIGINS = ['https://yourdomain.com']
-# SECURE_HSTS_SECONDS = 31536000
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
-#
-# ADMINS = [('Admin Name', 'admin_email@example.com')]
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = 'service:dashboard'

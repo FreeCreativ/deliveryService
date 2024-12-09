@@ -3,3 +3,4 @@ python-dotenv
 pillow
 django-filter
 django-extensions
+PyMySQL
