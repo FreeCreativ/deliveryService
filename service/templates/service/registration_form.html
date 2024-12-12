@@ -1,0 +1,131 @@
+<!-- templates/registration_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}Registration Form{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card-border">
+                                <div class="card-border-title">Order Information</div>
+                                <div class="card-border-body">
+                                    <form method="post" enctype="multipart/form-data" id="registrationForm">
+                                        {% csrf_token %}
+                                        <!-- Role Selection -->
+                                        <div class="mb-4">
+                                            <label for="role" class="form-label">Select Role</label>
+                                            <select class="form-select" id="role" name="role" onchange="toggleVehicleInfo()" required>
+                                                <option value="" disabled selected>Select Role</option>
+                                                <option value="rider">Rider</option>
+                                                <option value="staff">Staff</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Basic Information Section -->
+                                        <fieldset class="border p-4 mb-4">
+                                            <legend class="w-auto px-2">Basic Information</legend>
+                                            <div class="mb-3">
+                                                <label for="fullName" class="form-label">Full Name</label>
+                                                <input type="text" class="form-control" id="fullName" name="full_name" placeholder="Enter full name" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="phoneNumber" class="form-label">Phone Number</label>
+                                                <input type="tel" class="form-control" id="phoneNumber" name="phone_number" placeholder="Enter phone number" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="address" class="form-label">Home Address</label>
+                                                <input type="text" class="form-control" id="address" name="address" placeholder="Enter home address" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="stateOfOrigin" class="form-label">State Of Origin</label>
+                                                <input type="text" class="form-control" id="stateOfOrigin" name="state_of_origin" placeholder="Enter state of Origin" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="dob" class="form-label">Date of Birth</label>
+                                                <input type="date" class="form-control" id="dob" name="dob" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="emergencyContact" class="form-label">Emergency Contact</label>
+                                                <input type="text" class="form-control" id="emergencyContact" name="emergency_contact" placeholder="Enter emergency contact" required>
+                                            </div>
+                                        </fieldset>
+
+                                        <!-- Employment Information Section -->
+                                        <fieldset class="border p-4 mb-4">
+                                            <legend class="w-auto px-2">Employment Information</legend>
+                                            <div class="mb-3">
+                                                <label for="startDate" class="form-label">Start Date</label>
+                                                <input type="date" class="form-control" id="startDate" name="start_date" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="position" class="form-label">Position/Role</label>
+                                                <input type="text" class="form-control" id="position" name="position" placeholder="Enter position or role" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="payRate" class="form-label">Pay Rate</label>
+                                                <input type="number" class="form-control" id="payRate" name="pay_rate" placeholder="Enter pay rate" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="bankDetails" class="form-label">Bank Account Details</label>
+                                                <input type="text" class="form-control" id="bankDetails" name="bank_details" placeholder="Enter bank account details for payroll" required>
+                                            </div>
+                                        </fieldset>
+
+                                        <!-- Vehicle Information Section (Riders only) -->
+                                        <fieldset class="border p-4 mb-4" id="vehicleInfo" style="display:none;">
+                                            <legend class="w-auto px-2">Vehicle Information (Riders Only)</legend>
+                                            <div class="mb-3">
+                                                <label for="vehicleType" class="form-label">Vehicle Type</label>
+                                                <input type="text" class="form-control" id="vehicleType" name="vehicle_type" placeholder="Enter vehicle type" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="vehicleRegNumber" class="form-label">Vehicle Registration Number</label>
+                                                <input type="text" class="form-control" id="vehicleRegNumber" name="vehicle_reg_number" placeholder="Enter vehicle registration number" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="insuranceDetails" class="form-label">Insurance Details</label>
+                                                <input type="text" class="form-control" id="insuranceDetails" name="insurance_details" placeholder="Enter vehicle insurance details" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="driverLicense" class="form-label">Driver’s License</label>
+                                                <input type="text" class="form-control" id="driverLicense" name="driver_license" placeholder="Enter driver’s license number" required>
+                                            </div>
+                                        </fieldset>
+
+                                        <!-- Document Upload Section -->
+                                        <fieldset class="border p-4 mb-4">
+                                            <legend class="w-auto px-2">Upload Documents</legend>
+                                            <div class="mb-3">
+                                                <label for="staffAgreement" class="form-label">Staff Agreement Document</label>
+                                                <input type="file" class="form-control" id="staffAgreement" name="staff_agreement" accept=".pdf,.doc,.docx" required>
+                                                <small class="form-text text-muted">Upload the staff agreement in PDF or Word format.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="verificationDocument" class="form-label">Means of Verification Document</label>
+                                                <input type="file" class="form-control" id="verificationDocument" name="verification_document" accept=".pdf,.doc,.docx" required>
+                                                <small class="form-text text-muted">Upload a document for means of verification (e.g., ID, certificate).</small>
+                                            </div>
+                                        </fieldset>
+
+                                        <!-- Submit Button -->
+                                        <button type="submit" class="btn btn-primary">Submit Registration</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

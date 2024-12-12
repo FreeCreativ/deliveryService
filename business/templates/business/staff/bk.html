@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% block title %}
+    - add staff
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="content-wrapper">
+
+        <!-- Row start -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-16 col-sm-12 col-12">
+                                <div class="card-border">
+                                    <div class="card-border-title">Order Information</div>
+                                    <div class="card-border-body">
+                                        <form id="registrationForm" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <!-- Role Selection -->
+                                            <div class="mb-4">
+                                                <label for="role" class="form-label">Select Role</label>
+                                                <select class="form-select" id="role" onchange="toggleVehicleInfo()"
+                                                        required name="role">
+                                                    <option value="" disabled selected>Select Role</option>
+                                                    <option value="rider">Rider</option>
+                                                    <option value="staff">Staff</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Basic Information Section -->
+                                            <fieldset class="border p-4 mb-4">
+                                                <legend class="w-auto px-2">Basic Information</legend>
+
+                                                <div class="mb-3">
+                                                    <label for="fullName" class="form-label">Full Name</label>
+                                                    <input type="text" class="form-control" id="fullName"
+                                                           placeholder="Enter full name" required name="name">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                                                    <input type="tel" class="form-control" id="phoneNumber"
+                                                           placeholder="Enter phone number" required
+                                                           name="phone_number">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="email" class="form-label">Email</label>
+                                                    <input type="email" class="form-control" id="email"
+                                                           placeholder="Enter email" required name="email">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="address" class="form-label">Home Address</label>
+                                                    <input type="text" class="form-control" id="address"
+                                                           placeholder="Enter home address" required name="address">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="State of Origin" class="form-label">State Of
+                                                        Origin</label>
+                                                    <input type="text" class="form-control" id="address"
+                                                           placeholder="Enter state of Origin" required
+                                                           name="state_of_origin">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="dob" class="form-label">Date of Birth</label>
+                                                    <input type="date" class="form-control" id="dob" required
+                                                           name="date_of_birth">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="emergencyContact" class="form-label">Emergency
+                                                        Contact</label>
+                                                    <input type="text" class="form-control" id="emergencyContact"
+                                                           placeholder="Enter emergency contact" required
+                                                           name="emergency_contact">
+                                                </div>
+                                            </fieldset>
+
+                                            <!-- Employment Information Section -->
+                                            <fieldset class="border p-4 mb-4">
+                                                <legend class="w-auto px-2">Employment Information</legend>
+
+
+                                                <div class="mb-3">
+                                                    <label for="startDate" class="form-label">Start Date</label>
+                                                    <input type="date" class="form-control" id="startDate" required
+                                                           name="start_date">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="position" class="form-label">Position/Role</label>
+                                                    <input type="text" class="form-control" id="position"
+                                                           placeholder="Enter position or role" required
+                                                           name="position">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="payRate" class="form-label">Pay Rate</label>
+                                                    <input type="number" class="form-control" id="payRate"
+                                                           placeholder="Enter pay rate" required name="pay_rate">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="bankDetails" class="form-label">Bank Account
+                                                        Details</label>
+                                                    <input type="text" class="form-control" id="bankDetails"
+                                                           placeholder="Enter bank account details for payroll"
+                                                           required name="{{ form.bank_details.name }}">
+                                                </div>
+                                            </fieldset>
+
+                                            <!-- Vehicle Information Section (Riders only) -->
+                                            <fieldset class="border p-4 mb-4" id="vehicleInfo" style="display:none;">
+                                                <legend class="w-auto px-2">Vehicle Information (Riders Only)</legend>
+
+                                                <div class="mb-3">
+                                                    <label for="vehicleType" class="form-label">Vehicle Type</label>
+                                                    <input type="text" class="form-control" id="vehicleType"
+                                                           placeholder="Enter vehicle type" required
+                                                           name="vehicle_type">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="vehicleRegNumber" class="form-label">Vehicle
+                                                        Registration Number</label>
+                                                    <input type="text" class="form-control" id="vehicleRegNumber"
+                                                           placeholder="Enter vehicle registration number" required
+                                                           name="vehicle_reg_number">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="insuranceDetails" class="form-label">Insurance
+                                                        Details</label>
+                                                    <input type="text" class="form-control" id="insuranceDetails"
+                                                           placeholder="Enter vehicle insurance details" required
+                                                           name="insurance_details">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="driverLicense" class="form-label">Driver’s
+                                                        License</label>
+                                                    <input type="text" class="form-control" id="driverLicense"
+                                                           placeholder="Enter driver’s license number" required
+                                                           name="driver_license">
+                                                </div>
+                                            </fieldset>
+
+                                            <fieldset class="border p-4 mb-4">
+                                                <legend class="w-auto px-2">Upload Documents</legend>
+
+                                                <div class="mb-3">
+                                                    <label for="staffAgreement" class="form-label">Staff Agreement
+                                                        Document</label>
+                                                    <input type="file" class="form-control" id="staffAgreement"
+                                                           accept=".pdf,.doc,.docx" required name="staff_agreement">
+                                                    <small class="form-text text-muted">Upload the staff agreement in
+                                                        PDF or Word format.</small>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="verificationDocument" class="form-label">Means of
+                                                        Verification Document</label>
+                                                    <input type="file" class="form-control" id="verificationDocument"
+                                                           accept=".pdf,.doc,.docx" required
+                                                           name="verification_document">
+                                                    <small class="form-text text-muted">Upload a document for means of
+                                                        verification (e.g., ID, certificate).</small>
+                                                </div>
+                                            </fieldset>
+
+
+                                            <!-- Submit Button -->
+                                            <button type="submit" class="btn btn-primary">Submit Registration</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+
+        </div>
+        <script>
+            // Function to toggle the visibility of the vehicle information section based on selected role
+            function toggleVehicleInfo() {
+                const role = document.getElementById('role').value;
+                const vehicleInfo = document.getElementById('vehicleInfo');
+
+                if (role === 'rider') {
+                    vehicleInfo.style.display = 'block';
+                } else {
+                    vehicleInfo.style.display = 'none';
+                }
+            }
+        </script>
+    </div>
+{% endblock %}

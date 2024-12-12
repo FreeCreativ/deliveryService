@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    - add expenses
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-16 col-sm-12 col-12">
+                                    <div class="card-border">
+                                        <div class="card-border-title">Add Expenses</div>
+                                        <div class="card-border-body">
+                                            <div class="row">
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Expense Name <span
+                                                                class="text-red">*</span></label>
+                                                        <input type="text" class="form-control"
+                                                               placeholder="eg. Buying of fuel" name="name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Amount <span class="text-red">*</span></label>
+                                                        <input type="text" class="form-control"
+                                                               placeholder="Enter Expense Amount" name="amount">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Expense Category<span
+                                                                class="text-red">*</span></label>
+                                                        <select class="form-control" name="category">
+                                                            <option value="">Select Expense Category</option>
+                                                            <option value="Fuel">Fuel</option>
+                                                            <option value="Maintenance">Maintenance</option>
+                                                            <option value="Packaging">Packaging</option>
+                                                            <option value="Ticket">Ticket</option>
+                                                            <option value="Rider">Rider Fee</option>
+                                                            <option value="Others">Others</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Vendor <span class="text-red">(optional)</span></label>
+                                                        <input type="text" class="form-control"
+                                                               placeholder="Enter vendor name " name="vendor">
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="custom-btn-group flex-end">
+
+                                        <a href="{% url 'service:dashboard' %}" class="btn btn-light">Cancel</a>
+                                        <button type="submit" class="btn btn-success">Add Expense</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row end -->
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    - Reviews
+{% endblock %}
+
+{% block content %}
+    <!-- Content wrapper scroll start -->
+    <div class="content-wrapper-scroll">
+
+        <!-- Content wrapper start -->
+        <div class="content-wrapper">
+
+            <!-- Row start -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Reviews</div>
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target="#addReview"><i
+                                    class="bi bi-plus-square"></i> Add New Review
+                            </button>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table class="table v-middle customerTable">
+                                    <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Date</th>
+                                        <th>Review</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for review in reviews %}
+                                        <tr>
+                                            <td>{{ review.customer }}</td>
+                                            <td>{{ review.date }}</td>
+                                            <td>{{ review.review }}</td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="3">No reviews available.</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+
+        </div>
+        <!-- Content wrapper end -->
+
+        <!--Edit modal-->
+        <div class="modal fade" id="addReview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="scrollableLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px #ddd solid;">
+                        <h5 class="modal-title" id="scrollableLabel">Review</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" id="reviewForm">
+                        <div class="modal-body">
+
+                            {% csrf_token %}
+                            <div class="row">
+                                <!-- Expense Name -->
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Customer Name <span class="text-red">*</span></label>
+                                        <input type="text" class="form-control" placeholder="enter Customer Name"
+                                               name="{{ form.customer.name }}">
+                                    </div>
+                                </div>
+
+                                <!-- Amount -->
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Customer Review <span
+                                                class="text-red">*</span></label>
+                                        <textarea rows="4" class="form-control"
+                                                  placeholder="enter what custormer said about us"
+                                                  name="{{ form.review.name }}"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--end-->
+{% endblock %}

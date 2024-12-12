@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    - expenses
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper-scroll">
+
+        <!-- Content wrapper start -->
+        <div class="content-wrapper">
+
+            <!-- Row start -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">Filter Expenses</div>
+                            <form class="row g-3" method="get">
+                                <!-- Date Range Filter -->
+                                <div class="col-md-4">
+                                    <label for="startDate" class="form-label">Expenses Date</label>
+                                    <input type="text" class="form-control custom-daterange2" id="startDate"
+                                           name="date__lt">
+                                </div>
+
+                                <!-- Order Status Filter -->
+                                <div class="col-md-4">
+                                    <label for="category" class="form-label">Expense Category</label>
+                                    <select class="form-select" id="category" name="category">
+                                        <option value="">Select Expense Category</option>
+                                        <option value="Fuel" selected>Fuel</option>
+                                        <option value="Maintenance">Maintenance</option>
+                                        <option value="Packaging">Packaging</option>
+                                        <option value="Ticket">Ticket</option>
+                                        <option value="Rider">Salary</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                                <!-- Rider Filter -->
+                                <div class="col-md-4">
+                                    <label for="minAmount" class="form-label">Min Amount</label>
+                                    <input type="number" class="form-control" id="minAmount"
+                                           placeholder="Enter minimum amount" name="amount__gt">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="maxAmount" class="form-label">Max Amount</label>
+                                    <input type="number" class="form-control" id="maxAmount"
+                                           placeholder="Enter maximum amount" name="amount__lt">
+                                </div>
+                                <!-- Submit Button -->
+                                <div class="col-md-4 align-self-end">
+                                    <button type="submit" class="btn btn-primary w-100">Generate Report</button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Expenses</div>
+
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table id="customerTable" class="customerTable table v-middle">
+                                    <thead>
+                                    <tr>
+                                        <th>ExpID</th>
+                                        <th>Catigory</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Vendor/Payee</th>
+                                        <th>payment Method</th>
+                                        <th>Date</th>
+
+
+                                        <th>Exp Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for expense in expenses %}
+                                        <tr>
+                                            <td>
+                                                <div class="media-box">
+
+                                                    <div class="media-box-body">
+                                                        <div class="text-truncate">{{ expense.expense_id }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{ expense.category }}</td>
+                                            <td>
+                                                <div class="media-box">
+
+                                                    <div class="media-box-body">
+                                                        <div class="text-truncate">{{ expense.description }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{ expense.amount }}</td>
+                                            <td>{{ expense.vendor }}</td>
+                                            <td>{{ expense.payment_method }}</td>
+                                            <td>
+                                                {{ expense.date }}
+                                            </td>
+
+                                            <td>
+                                                <span class="badge shade-{{ expense.status_color }} min-90">{{ expense.status }}</span>
+                                            </td>
+                                            <td>
+                                                <div class="actions">
+
+                                                    <button type="button" class="btn btn-light " data-bs-toggle="modal"
+                                                            data-bs-target="#editmodel{{ expense.expense_id }}"
+                                                            data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="Edit"><i
+                                                            class="bi bi-pencil-square text-green"></i></button>
+                                                    <a href="{% url 'service:expense_delete' expense.expense_id %}"
+                                                       type="button" class="btn btn-danger"
+                                                       data-bs-toggle="tooltip"
+                                                       data-bs-placement="top" title="Delete"
+                                                       style="margin-left: 10px;"><i
+                                                            class="bi bi-trash text-white"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!--Edit modal-->
+                                        <div class="modal fade" id="editmodel{{ expense.expense_id }}"
+                                             data-bs-backdrop="static"
+                                             data-bs-keyboard="false" tabindex="-1"
+                                             aria-labelledby="scrollableLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
+                                                <div class="modal-header" style="border-bottom: 1px #ddd solid;">
+                                                    <h5 class="modal-title" id="scrollableLabel">Edit Expense :
+                                                        {{ expense.expense_id }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post"
+                                                          action="{% url 'service:expense_update' expense.expense_id %}">
+                                                        {% csrf_token %}
+                                                        <div class="row">
+                                                            <!-- Expense Name -->
+                                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Expense Name <span
+                                                                            class="text-red">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                           placeholder="eg. Buying of fuel"
+                                                                           name="name"
+                                                                           value="{{ expense.name }}">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Amount -->
+                                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Amount <span
+                                                                            class="text-red">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                           placeholder="Enter Expense Amount"
+                                                                           name="amount"
+                                                                           value="{{ expense.amount }}">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Expense Category -->
+                                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Expense Category<span
+                                                                            class="text-red">*</span></label>
+                                                                    <select class="form-control" name="category">
+                                                                        <option value="">Select Expense Category
+                                                                        </option>
+                                                                        <option value="Fuel"
+                                                                                {% if expense.category == "Fuel" %}selected{% endif %}>
+                                                                            Fuel
+                                                                        </option>
+                                                                        <option value="Maintenance"
+                                                                                {% if expense.category == "Maintenance" %}selected{% endif %}>
+                                                                            Maintenance
+                                                                        </option>
+                                                                        <option value="Packaging"
+                                                                                {% if expense.category == "Packaging" %}selected{% endif %}>
+                                                                            Packaging
+                                                                        </option>
+                                                                        <option value="Ticket"
+                                                                                {% if expense.category == "Ticket" %}selected{% endif %}>
+                                                                            Ticket
+                                                                        </option>
+                                                                        <option value="Rider"
+                                                                                {% if expense.category == "Rider" %}selected{% endif %}>
+                                                                            Salary
+                                                                        </option>
+                                                                        <option value="Others"
+                                                                                {% if expense.category == "Others" %}selected{% endif %}>
+                                                                            Others
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Vendor (Optional) -->
+                                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Vendor <span
+                                                                            class="text-red">(optional)</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                           placeholder="Enter vendor name"
+                                                                           name="vendor"
+                                                                           value="{{ expense.vendor }}">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Status -->
+                                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Status <span
+                                                                            class="text-red">*</span></label>
+                                                                    <select class="form-control" name="status">
+                                                                        <option value="Paid"
+                                                                                {% if expense.status == "Paid" %}selected{% endif %}>
+                                                                            Paid
+                                                                        </option>
+                                                                        <option value="Reimbursed"
+                                                                                {% if expense.status == "Reimbursed" %}selected{% endif %}>
+                                                                            Reimbursed
+                                                                        </option>
+                                                                        <option value="Pending"
+                                                                                {% if expense.status == "Pending" %}selected{% endif %}>
+                                                                            Pending
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Edit</button>
+                                                            <button type="button" class="btn btn-dark"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end-->
+
+
+                                    {% empty %}
+                                        <tr>
+                                            <td>No expense Registered</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+
+        </div>
+    </div>
+{% endblock %}

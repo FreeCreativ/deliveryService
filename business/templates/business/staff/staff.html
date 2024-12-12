@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    - Staff
+{% endblock %}
+
+
+{% block content %}
+    <div class="content-wrapper-scroll">
+
+        <!-- Content wrapper start -->
+        <div class="content-wrapper">
+
+            <!-- Row start -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Staffs</div>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table id="" class="customerTable table v-middle m-0">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for staff in staff_list %}
+                                        <tr>
+                                            <td>
+                                                {{ staff.staff_id }}
+                                            </td>
+                                            <td>
+                                                {{ staff.name }}
+                                            </td>
+                                            <td>{{ staff.role }}</td>
+
+                                            <td>{{ staff.email }}</td>
+                                            <td>{{ staff.phone_number }}</td>
+
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="{% url 'business:staff_detail'  staff_id=staff.staff_id %}"
+                                                       class="viewRow" data-bs-toggle="tooltip"
+                                                       data-bs-placement="top" title="View">
+                                                        <i class="bi bi-eye text-green"></i>
+                                                    </a>
+                                                    <a href="{% url 'business:staff_delete'  staff_id=staff.staff_id %}"
+                                                       class="deleteRow" data-bs-toggle="tooltip"
+                                                       data-bs-placement="top" title="Delete">
+                                                        <i class="bi bi-trash text-red"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td>NO Staff Registered <a
+                                                    href="{% url 'business:staff_create' %}" class="link link-primary">Register</a>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+
+        </div>
+        <!-- Content wrapper end -->
+
+{% endblock %}

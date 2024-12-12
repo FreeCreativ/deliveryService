@@ -1,0 +1,407 @@
+{% extends 'base.html' %}
+{% block title %}
+    - Orders
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper-scroll">
+
+        <!-- Content wrapper start -->
+        <div class="content-wrapper">
+
+            <!-- Row start -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">Filter Orders</div>
+                            <form class="row g-3">
+                                <!-- Date Range Filter -->
+                                <div class="col-md-4">
+                                    <label for="startDate" class="form-label">Order Date</label>
+                                    <input type="text" class="form-control custom-daterange2" id="startDate">
+                                </div>
+
+                                <!-- Order Status Filter -->
+                                <div class="col-md-4">
+                                    <label for="status" class="form-label">Order Status</label>
+                                    <select class="form-select" id="status">
+                                        <option value="all" selected>All Orders</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+                                <!-- Rider Filter -->
+                                <div class="col-md-4">
+                                    <label for="rider" class="form-label">Rider</label>
+                                    <select class="form-select" id="rider">
+                                        <option value="all" selected>All Riders</option>
+                                        <option value="rider1">Rider 1</option>
+                                        <option value="rider2">Rider 2</option>
+                                        <!-- Add more riders as needed -->
+                                    </select>
+                                </div>
+                                <!-- Customer Filter -->
+                                <div class="col-md-4">
+                                    <label for="customer" class="form-label">Customer</label>
+                                    <select class="form-select" id="customer">
+                                        <option value="all" selected>All Customers</option>
+
+                                        <!-- Add more customers as needed -->
+                                    </select>
+                                </div>
+                                <!-- Submit Button -->
+                                <div class="col-md-4 align-self-end">
+                                    <button type="button" class="btn btn-primary w-100">Generate Report</button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Orders</div>
+
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table id="customerTable" class=" customerTable table v-middle">
+                                    <thead>
+                                    <tr>
+                                        <th>OrderID</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Order Type</th>
+                                        <th>Ordered Placed</th>
+
+                                        <th>Order Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for order in orders %}
+                                        <tr>
+                                            <td>
+                                                <div class="media-box">
+
+                                                    <div class="media-box-body">
+                                                        <div class="text-truncate">{{ order.order_id }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="media-box">
+
+                                                    <div class="media-box-body">
+                                                        <div class="text-truncate">{{ order.from_location }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{ order.to_location }}</td>
+                                            <td>{{ order.description }}</td>
+                                            <td>#{{ order.amount }}</td>
+                                            <td>
+                                                {{ order.order_type }}
+                                            </td>
+                                            <td>
+                                                {{ order.order_date }}
+                                            </td>
+
+                                            <td>
+                                                <span class="badge shade-{{ order.status_color }} min-90">{{ order.status }}</span>
+                                            </td>
+                                            <td>
+                                                <div class="actions">
+                                                    <a href="#" class="viewRow" data-bs-toggle="modal"
+                                                       data-bs-target="#modalDark{{ order.order_id }}"
+                                                       data-bs-toggle="tooltip" data-bs-placement="top"
+                                                       title="Complete Order">
+                                                        <i class="bi bi-send-check-fill text-green"></i>
+                                                    </a>
+                                                    <a href="#" class="viewRow" data-bs-toggle="modal"
+                                                       data-bs-target="#modalReason{{ order.order_id }}"
+                                                       data-bs-toggle="tooltip" data-bs-placement="top"
+                                                       title="Cancel Order">
+                                                        <i class="bi bi-x-octagon-fill text-red"></i>
+                                                    </a>
+                                                    <a href="#" class="viewRow" data-bs-toggle="modal"
+                                                       data-bs-target="#scrollable{{ order.order_id }}"
+                                                       data-bs-toggle="tooltip" data-bs-placement="top"
+                                                       title="View Order">
+                                                        <i class="bi bi-list text-dark"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!--Complete section-->
+                                        <div class="modal fade" id="modalDark{{ order.order_id }}" tabindex="-1"
+                                             aria-labelledby="modalDarkLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalDarkLabel">Complete Order</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <form method="post"
+                                                          action="{% url 'service:order_complete' order.order_id %}">
+                                                        {% csrf_token %}
+                                                        <div class="modal-body">
+
+                                                            <div class="card-body">
+                                                                <div class="m-0">
+                                                                    <label class="form-label"
+                                                                           for="selectRider{{ order.order_id }}">Rider
+                                                                        Info</label>
+                                                                    <select name="rider" class="form-control"
+                                                                            id="selectRider{{ order.order_id }}">
+                                                                        <option value="" selected>Select a
+                                                                            Rider
+                                                                        </option>
+                                                                        {% for rider in riders %}
+                                                                            <option value="{{ rider.rider_id }}">{{ rider.name }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                    <input type="hidden" name="status"
+                                                                           value="Delivered">
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-dark"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="submit" class="btn btn-success"
+                                                                    data-bs-dismiss="modal">Complete Order
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end-->
+
+                                        <!--Cancel Order-->
+                                        <div class="modal fade" id="modalReason{{ order.order_id }}" tabindex="-1"
+                                             aria-labelledby="modalDarkLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalDarkLabel">Reason for Order
+                                                            Cancellation</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{% url 'service:order_cancel' order.order_id %}"
+                                                          method="post">
+                                                        {% csrf_token %}
+                                                        <div class="modal-body">
+
+                                                            <div class="card-body">
+                                                                <div class="m-0">
+                                                                    <label class="form-label">Why Do You Want to Cancel
+                                                                        the Order?</label>
+                                                                    <input type="text" class="form-control"
+                                                                           placeholder="Enter your Reason"
+                                                                           name="cancel_reason">
+                                                                </div>
+                                                                <input type="hidden" name="status" value="Cancelled">
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-dark"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="submit" class="btn btn-danger"
+                                                                    data-bs-dismiss="modal">Cancel Order
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end-->
+
+                                        <div class="modal fade" id="scrollable{{ order.order_id }}"
+                                             data-bs-backdrop="static"
+                                             data-bs-keyboard="false" tabindex="-1"
+                                             aria-labelledby="scrollableLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" style="border-bottom: 1px #ddd solid;">
+                                                        <h5 class="modal-title" id="scrollableLabel">Order ID :
+                                                            {{ order.order_id }}</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>From</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.from_location }}
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>To</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.to_location }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Order Type</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.order_type }}
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Amount</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                #{{ order.amount }}
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Description</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.description }}
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Payment Method</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.payment_method }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Order Placed</p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.order_date }}
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>completed At </p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {% if order.status == 'Delivered' %}
+                                                                    {{ order.order_completed }}
+                                                                {% else %}
+                                                                    Incomplete
+                                                                {% endif %}
+                                                            </p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Status</p>
+                                                            </div>
+                                                            <p class="ml-auto badge shade-{{ order.status_color }} min-90">
+                                                                {{ order.status }}
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Customer Name </p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.customer.customer_name }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Customer phone </p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {{ order.customer.contact }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>Rider Name </p>
+                                                            </div>
+                                                            <p class="ml-auto">
+                                                                {% if order.status == 'Delivered' %}
+                                                                    {{ order.rider.name }}
+                                                                {% else %}
+                                                                    Rider Unassigned
+                                                                {% endif %}
+                                                            </p>
+                                                        </div>
+                                                        <!-- If the ordr is been canceled instead of showing rider name it will show reason why it cancel
+                                                            <div class="d-flex justify-content-between">
+                                                                <div>
+                                                                    <p>Reason for Cancellation</p>
+                                                                </div>
+                                                                <p class="ml-auto">
+                                                               The price to much
+                                                        </p>
+                                                            </div>
+                                                            -->
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-dark"
+                                                                data-bs-dismiss="modal">Close
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end-->
+
+
+
+                                    {% empty %}
+                                        <tr>
+                                            <td>No orders found</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

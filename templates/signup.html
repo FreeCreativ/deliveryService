@@ -1,0 +1,173 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Meta -->
+    <meta name="description" content="Arise - Responsive Bootstrap 5 Dashboard Template">
+    <meta name="author" content="Bootstrap Gallery">
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.svg' %}">
+
+    <!-- Title -->
+    <title>Pariti Delivery Service - Signup</title>
+
+    <!-- Common CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/bootstrap/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/main.min.css' %}">
+
+    <style>
+        input:autofill, input:autofill:hover {
+            -webkit-text-fill-color: none;
+            box-shadow: none;
+        }
+        .login-container {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="login-container">
+
+    <!-- Login box start -->
+    <form id="registrationForm" method="post">
+        {% csrf_token %}
+        <div class="login-box">
+            <div class="login-form">
+                <a href="{% url 'dashboard:index' %}" class="login-logo">
+                    <img src="{% static 'assets/images/logo.svg' %}" alt="Vico Admin" />
+                </a>
+                <div class="login-welcome">
+                    Welcome back, <br />Pariti Delivery Service
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="mb-3">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" name="fname" required>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="mb-3">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" name="lname" required>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="mb-3">
+                            <label class="form-label">Company Name</label>
+                            <input type="text" class="form-control" name="cname" id="companyName" required>
+                            <span class="error-message" style="color:red;" id="companyError"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" required>
+                            <span class="error-message" style="color:red;" id="emailError"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" name="pwd" id="password" required>
+                            <span class="error-message" style="color:red;" id="passwordError"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="mb-3">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" name="cPwd" id="confirmPassword" required>
+                            <span class="error-message" style="color:red;" id="confirmPasswordError"></span>
+                        </div>
+                    </div>
+
+                    <div class="login-form-actions">
+                        <button type="submit" class="btn">
+                            <span class="icon"><i class="bi bi-arrow-right-circle"></i></span> Signup
+                        </button>
+                    </div>
+                    <div class="login-form-footer">
+                        <div class="additional-link">
+                            Already have an account? <a href="{% url 'login' %}">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#registrationForm').on('submit', function(event) {
+                event.preventDefault();
+
+                // Clear previous error messages
+                $('#emailError').text('');
+                $('#companyError').text('');
+                $('#passwordError').text('');
+                $('#confirmPasswordError').text('');
+
+                var password = $('#password').val();
+                var confirmPassword = $('#confirmPassword').val();
+                var formData = $(this).serialize();
+
+                var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+                var errors = false;
+
+                if (!passwordPattern.test(password)) {
+                    $('#passwordError').text("Password must be at least 8 characters, contain an uppercase letter, a lowercase letter, a number, and a special character.");
+                    errors = true;
+                }
+
+                if (password !== confirmPassword) {
+                    $('#confirmPasswordError').text("Passwords do not match.");
+                    errors = true;
+                }
+
+                if (!errors) {
+                    $.ajax({
+                        url: '{% url "signup" %}',
+                        type: 'POST',
+                        data: formData,
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.success) {
+                                alert(response.message);
+                            } else {
+                                if (response.errors.email) {
+                                    $('#emailError').text(response.errors.email);
+                                }
+                                if (response.errors.company) {
+                                    $('#companyError').text(response.errors.company);
+                                }
+                                if (response.errors.general) {
+                                    alert(response.errors.general);
+                                }
+                            }
+                        },
+                        error: function(xhr) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- Required JavaScript Files -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/modernizr.js' %}"></script>
+    <script src="{% static 'assets/js/moment.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

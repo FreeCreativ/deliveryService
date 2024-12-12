@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    - User Management
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper-scroll">
+
+        <!-- Content wrapper start -->
+        <div class="content-wrapper">
+
+            <!-- Row start -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">All Users</div>
+                            <a href="" data-bs-toggle="modal" data-bs-target="#Addmodel">
+
+                                <button type="button" class="btn btn-info"><i class="bi bi-plus-square"></i> Add
+                                </button>
+                            </a>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table id="" class="customerTable table v-middle m-0">
+                                    <thead>
+                                    <tr>
+                                        <th>user ID</th>
+                                        <th>username</th>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Email</th>
+                                        <th>Password</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            TR33485Th
+                                        </td>
+                                        <td>
+                                            DollyWinters
+                                        </td>
+                                        <td>Mr Dolly WInter</td>
+
+                                        <td>Dispacher</td>
+                                        <td>DollyWinters@gmail.com</td>
+                                        <td>THSGDSJSY</td>
+                                        <td>
+                                            <div class="actions">
+                                                <a href="#" class="viewRow" data-bs-toggle="modal"
+                                                   data-bs-target="#editmodel" data-bs-toggle="tooltip"
+                                                   data-bs-placement="top" title="Edit">
+                                                    <i class="bi bi-plus-square"></i>
+                                                </a>
+                                                <a href="#" class="deleteRow" data-bs-toggle="tooltip"
+                                                   data-bs-placement="top" title="Delete">
+                                                    <i class="bi bi-trash text-red"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+
+        </div>
+        <!-- Content wrapper end -->
+
+        <!--Edit modal-->
+        <div class="modal fade" id="editmodel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="scrollableLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px #ddd solid;">
+                        <h5 class="modal-title" id="scrollableLabel">Edit User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <!-- First Name -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">First Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="john" name="fName"
+                                               value="John">
+                                    </div>
+                                </div>
+
+                                <!-- Last Name -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Dove" name="lname"
+                                               value="Dove">
+                                    </div>
+                                </div>
+
+                                <!-- Username -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Username <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="johndove2" name="uname"
+                                               value="johndove2">
+                                    </div>
+                                </div>
+
+                                <!-- Password -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Password <span class="text-danger">*</span></label>
+                                        <input type="password" class="form-control" placeholder="Jong232232@" name="pwd"
+                                               value="Jong232232@">
+                                    </div>
+                                </div>
+
+                                <!-- Confirm Password -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Confirm Password <span
+                                                class="text-danger">*</span></label>
+                                        <input type="password" class="form-control" placeholder="Jong232232@"
+                                               name="cpwd"
+                                               value="Jong232232@">
+                                    </div>
+                                </div>
+
+                                <!-- Role and Permission -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Role <span class="text-danger">*</span></label>
+                                        <select class="form-control" name="expCategory">
+                                            <option value="Admin" selected>Admin</option>
+                                            <option value="Dispatcher">Dispatcher</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Edit</button>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end-->
+
+        <!--Edit add user-->
+        <div class="modal fade" id="Addmodel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="scrollableLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px #ddd solid;">
+                        <h5 class="modal-title" id="scrollableLabel">Add User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <!-- first Name -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">First Name <span class="text-red">*</span></label>
+                                        <input type="text" class="form-control" placeholder="john" name="fName">
+                                    </div>
+                                </div>
+
+                                <!-- lastname -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Last Name <span class="text-red">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Dove" name="lname">
+                                    </div>
+                                </div>
+                                <!-- Username -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Username <span class="text-red">*</span></label>
+                                        <input type="text" class="form-control" placeholder="johndove2" name="uname">
+                                    </div>
+                                </div>
+
+                                <!-- Password -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Password <span class="text-red">*</span></label>
+                                        <input type="password" class="form-control" placeholder="Jong232232@"
+                                               name="pwd">
+                                    </div>
+                                </div>
+                                <!-- confirm Password -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label"> Confirm Password <span
+                                                class="text-red">*</span></label>
+                                        <input type="password" class="form-control" placeholder="Jong232232@"
+                                               name="cpwd">
+                                    </div>
+                                </div>
+                                <!-- Role and Permission -->
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Role<span class="text-red">*</span></label>
+                                        <select class="form-control" name="expCategory">
+                                            <option value="Admin" selected>Admin</option>
+                                            <option value="Dispacher">Dispacher</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <!-- Status -->
+
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end-->
+
+{% endblock %}

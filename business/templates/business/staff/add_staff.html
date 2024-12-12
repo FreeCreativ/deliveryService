@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}
+    - add staff
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="content-wrapper">
+
+        <!-- Row start -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-16 col-sm-12 col-12">
+                                <div class="card-border">
+                                    <div class="card-border-title">Order Information</div>
+                                    <div class="card-border-body">
+                                        <form method="post"  enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            {{ form.non_field_errors }}
+                                            {% for field in form %}
+                                                <div>
+                                                    {{ field.label_tag }}
+                                                    {{ field }}
+                                                    {% for error in field.errors %}
+                                                        <p class="error">{{ error }}</p>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endfor %}
+                                            <button type="submit">Submit</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+
+        </div>
+        <script>
+            // Function to toggle the visibility of the vehicle information section based on selected role
+            function toggleVehicleInfo() {
+                const role = document.getElementById('role').value;
+                const vehicleInfo = document.getElementById('vehicleInfo');
+
+                if (role === 'rider') {
+                    vehicleInfo.style.display = 'block';
+                } else {
+                    vehicleInfo.style.display = 'none';
+                }
+            }
+        </script>
+    </div>
+{% endblock %}

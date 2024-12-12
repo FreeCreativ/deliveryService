@@ -1,0 +1,889 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    - {{ object.name }} Profile
+{% endblock %}
+
+
+{% block content %}
+
+    <style>
+        .justify-content-between {
+            padding-top: 10px;
+        }
+
+        .fixed-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 10px;
+            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+
+        }
+    </style>
+    <!-- Content wrapper scroll start -->
+    <div class="content-wrapper-scroll">
+
+        <!-- Content wrapper start -->
+        <div class="content-wrapper">
+
+            <!-- Row start -->
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                    <div class="profile-header">
+                        <h1>Welcome, {{ staff.name }}</h1>
+                        <div class="profile-header-content">
+                            <div class="profile-header-tiles">
+                                <div class="row gutters">
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="stats-tile">
+                                            <div class="sale-icon shade-blue">
+                                                <i class="bi bi-pie-chart"></i>
+                                            </div>
+                                            <div class="sale-details">
+                                                <h5>Total Trips Made</h5>
+                                                <h3 class="text-blue">{{ staff.total_trips }}</h3>
+
+                                            </div>
+                                            <div class="sale-graph">
+                                                <div id="sparklineLine1" style="min-height: 40px;">
+                                                    <div id="apexchartsqkfis73s"
+                                                         class="apexcharts-canvas apexchartsqkfis73s apexcharts-theme-light"
+                                                         style="width: 65px; height: 40px;">
+                                                        <svg id="SvgjsSvg1189" width="65" height="40"
+                                                             xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                             xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                             xmlns:svgjs="http://svgjs.com/svgjs" class="apexcharts-svg"
+                                                             xmlns:data="ApexChartsNS" transform="translate(0, 0)"
+                                                             style="background: transparent;">
+                                                            <g id="SvgjsG1191"
+                                                               class="apexcharts-inner apexcharts-graphical"
+                                                               transform="translate(0, 0)">
+                                                                <defs id="SvgjsDefs1190">
+                                                                    <clipPath id="gridRectMaskqkfis73s">
+                                                                        <rect id="SvgjsRect1196" width="70" height="41"
+                                                                              x="-2.5" y="-0.5" rx="0" ry="0"
+                                                                              opacity="1" stroke-width="0" stroke="none"
+                                                                              stroke-dasharray="0" fill="#fff"></rect>
+                                                                    </clipPath>
+                                                                    <clipPath id="forecastMaskqkfis73s"></clipPath>
+                                                                    <clipPath id="nonForecastMaskqkfis73s"></clipPath>
+                                                                    <clipPath id="gridRectMarkerMaskqkfis73s">
+                                                                        <rect id="SvgjsRect1197" width="69" height="44"
+                                                                              x="-2" y="-2" rx="0" ry="0" opacity="1"
+                                                                              stroke-width="0" stroke="none"
+                                                                              stroke-dasharray="0" fill="#fff"></rect>
+                                                                    </clipPath>
+                                                                    <linearGradient id="SvgjsLinearGradient1202" x1="0"
+                                                                                    y1="0" x2="0" y2="1">
+                                                                        <stop id="SvgjsStop1203" stop-opacity="0.65"
+                                                                              stop-color="rgba(67,94,239,0.65)"
+                                                                              offset="0"></stop>
+                                                                        <stop id="SvgjsStop1204" stop-opacity="0.5"
+                                                                              stop-color="rgba(161,175,247,0.5)"
+                                                                              offset="1"></stop>
+                                                                        <stop id="SvgjsStop1205" stop-opacity="0.5"
+                                                                              stop-color="rgba(161,175,247,0.5)"
+                                                                              offset="1"></stop>
+                                                                    </linearGradient>
+                                                                </defs>
+                                                                <line id="SvgjsLine1195" x1="0" y1="0" x2="0" y2="40"
+                                                                      stroke="#b6b6b6" stroke-dasharray="3"
+                                                                      class="apexcharts-xcrosshairs" x="0" y="0"
+                                                                      width="1" height="40" fill="#b1b9c4" filter="none"
+                                                                      fill-opacity="0.9" stroke-width="1"></line>
+                                                                <g id="SvgjsG1208" class="apexcharts-xaxis"
+                                                                   transform="translate(0, 0)">
+                                                                    <g id="SvgjsG1209" class="apexcharts-xaxis-texts-g"
+                                                                       transform="translate(0, -4)"></g>
+                                                                </g>
+                                                                <g id="SvgjsG1218" class="apexcharts-grid">
+                                                                    <g id="SvgjsG1219"
+                                                                       class="apexcharts-gridlines-horizontal"
+                                                                       style="display: none;">
+                                                                        <line id="SvgjsLine1221" x1="0" y1="0" x2="65"
+                                                                              y2="0" stroke="#ffffff"
+                                                                              stroke-dasharray="0"
+                                                                              class="apexcharts-gridline"></line>
+                                                                        <line id="SvgjsLine1222" x1="0" y1="10" x2="65"
+                                                                              y2="10" stroke="#ffffff"
+                                                                              stroke-dasharray="0"
+                                                                              class="apexcharts-gridline"></line>
+                                                                        <line id="SvgjsLine1223" x1="0" y1="20" x2="65"
+                                                                              y2="20" stroke="#ffffff"
+                                                                              stroke-dasharray="0"
+                                                                              class="apexcharts-gridline"></line>
+                                                                        <line id="SvgjsLine1224" x1="0" y1="30" x2="65"
+                                                                              y2="30" stroke="#ffffff"
+                                                                              stroke-dasharray="0"
+                                                                              class="apexcharts-gridline"></line>
+                                                                        <line id="SvgjsLine1225" x1="0" y1="40" x2="65"
+                                                                              y2="40" stroke="#ffffff"
+                                                                              stroke-dasharray="0"
+                                                                              class="apexcharts-gridline"></line>
+                                                                    </g>
+                                                                    <g id="SvgjsG1220"
+                                                                       class="apexcharts-gridlines-vertical"
+                                                                       style="display: none;"></g>
+                                                                    <line id="SvgjsLine1227" x1="0" y1="40" x2="65"
+                                                                          y2="40" stroke="transparent"
+                                                                          stroke-dasharray="0"></line>
+                                                                    <line id="SvgjsLine1226" x1="0" y1="1" x2="0"
+                                                                          y2="40" stroke="transparent"
+                                                                          stroke-dasharray="0"></line>
+                                                                </g>
+                                                                <g id="SvgjsG1198"
+                                                                   class="apexcharts-area-series apexcharts-plot-series">
+                                                                    <g id="SvgjsG1199" class="apexcharts-series"
+                                                                       seriesName="seriesx1" data:longestSeries="true"
+                                                                       rel="1" data:realIndex="0">
+                                                                        <path id="SvgjsPath1206"
+                                                                              d="M 0 40L 0 35C 3.791666666666666 35 7.041666666666666 30 10.833333333333332 30C 14.624999999999998 30 17.875 25 21.666666666666664 25C 25.458333333333332 25 28.708333333333332 20 32.5 20C 36.291666666666664 20 39.541666666666664 25 43.33333333333333 25C 47.12499999999999 25 50.375 15 54.166666666666664 15C 57.95833333333333 15 61.208333333333336 5 65 5C 65 5 65 5 65 40M 65 5z"
+                                                                              fill="url(#SvgjsLinearGradient1202)"
+                                                                              fill-opacity="1" stroke-opacity="1"
+                                                                              stroke-linecap="butt" stroke-width="0"
+                                                                              stroke-dasharray="0"
+                                                                              class="apexcharts-area" index="0"
+                                                                              clip-path="url(#gridRectMaskqkfis73s)"
+                                                                              pathTo="M 0 40L 0 35C 3.791666666666666 35 7.041666666666666 30 10.833333333333332 30C 14.624999999999998 30 17.875 25 21.666666666666664 25C 25.458333333333332 25 28.708333333333332 20 32.5 20C 36.291666666666664 20 39.541666666666664 25 43.33333333333333 25C 47.12499999999999 25 50.375 15 54.166666666666664 15C 57.95833333333333 15 61.208333333333336 5 65 5C 65 5 65 5 65 40M 65 5z"
+                                                                              pathFrom="M -1 40L -1 40L 10.833333333333332 40L 21.666666666666664 40L 32.5 40L 43.33333333333333 40L 54.166666666666664 40L 65 40"></path>
+                                                                        <path id="SvgjsPath1207"
+                                                                              d="M 0 35C 3.791666666666666 35 7.041666666666666 30 10.833333333333332 30C 14.624999999999998 30 17.875 25 21.666666666666664 25C 25.458333333333332 25 28.708333333333332 20 32.5 20C 36.291666666666664 20 39.541666666666664 25 43.33333333333333 25C 47.12499999999999 25 50.375 15 54.166666666666664 15C 57.95833333333333 15 61.208333333333336 5 65 5"
+                                                                              fill="none" fill-opacity="1"
+                                                                              stroke="#435eef" stroke-opacity="1"
+                                                                              stroke-linecap="butt" stroke-width="1"
+                                                                              stroke-dasharray="0"
+                                                                              class="apexcharts-area" index="0"
+                                                                              clip-path="url(#gridRectMaskqkfis73s)"
+                                                                              pathTo="M 0 35C 3.791666666666666 35 7.041666666666666 30 10.833333333333332 30C 14.624999999999998 30 17.875 25 21.666666666666664 25C 25.458333333333332 25 28.708333333333332 20 32.5 20C 36.291666666666664 20 39.541666666666664 25 43.33333333333333 25C 47.12499999999999 25 50.375 15 54.166666666666664 15C 57.95833333333333 15 61.208333333333336 5 65 5"
+                                                                              pathFrom="M -1 40L -1 40L 10.833333333333332 40L 21.666666666666664 40L 32.5 40L 43.33333333333333 40L 54.166666666666664 40L 65 40"></path>
+                                                                        <g id="SvgjsG1200"
+                                                                           class="apexcharts-series-markers-wrap"
+                                                                           data:realIndex="0">
+                                                                            <g class="apexcharts-series-markers">
+                                                                                <circle id="SvgjsCircle1233" r="0"
+                                                                                        cx="0" cy="0"
+                                                                                        class="apexcharts-marker wvbr772it no-pointer-events"
+                                                                                        stroke="#ffffff" fill="#435eef"
+                                                                                        fill-opacity="1"
+                                                                                        stroke-width="2"
+                                                                                        stroke-opacity="0.9"
+                                                                                        default-marker-size="0"></circle>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                    <g id="SvgjsG1201" class="apexcharts-datalabels"
+                                                                       data:realIndex="0"></g>
+                                                                </g>
+                                                                <line id="SvgjsLine1228" x1="0" y1="0" x2="65" y2="0"
+                                                                      stroke="#b6b6b6" stroke-dasharray="0"
+                                                                      stroke-width="1"
+                                                                      class="apexcharts-ycrosshairs"></line>
+                                                                <line id="SvgjsLine1229" x1="0" y1="0" x2="65" y2="0"
+                                                                      stroke-dasharray="0" stroke-width="0"
+                                                                      class="apexcharts-ycrosshairs-hidden"></line>
+                                                                <g id="SvgjsG1230"
+                                                                   class="apexcharts-yaxis-annotations"></g>
+                                                                <g id="SvgjsG1231"
+                                                                   class="apexcharts-xaxis-annotations"></g>
+                                                                <g id="SvgjsG1232"
+                                                                   class="apexcharts-point-annotations"></g>
+                                                            </g>
+                                                            <rect id="SvgjsRect1194" width="0" height="0" x="0" y="0"
+                                                                  rx="0" ry="0" opacity="1" stroke-width="0"
+                                                                  stroke="none" stroke-dasharray="0"
+                                                                  fill="#fefefe"></rect>
+                                                            <g id="SvgjsG1217" class="apexcharts-yaxis" rel="0"
+                                                               transform="translate(-18, 0)"></g>
+                                                            <g id="SvgjsG1192" class="apexcharts-annotations"></g>
+                                                        </svg>
+                                                        <div class="apexcharts-legend" style="max-height: 20px;"></div>
+                                                        <div class="apexcharts-tooltip apexcharts-theme-light">
+                                                            <div class="apexcharts-tooltip-title"
+                                                                 style="font-family: Lato; font-size: 12px;"></div>
+                                                            <div class="apexcharts-tooltip-series-group"
+                                                                 style="order: 1;"><span
+                                                                    class="apexcharts-tooltip-marker"
+                                                                    style="background-color: rgb(67, 94, 239);"></span>
+                                                                <div class="apexcharts-tooltip-text"
+                                                                     style="font-family: Lato; font-size: 12px;">
+                                                                    <div class="apexcharts-tooltip-y-group"><span
+                                                                            class="apexcharts-tooltip-text-y-label"></span><span
+                                                                            class="apexcharts-tooltip-text-y-value"></span>
+                                                                    </div>
+                                                                    <div class="apexcharts-tooltip-goals-group"><span
+                                                                            class="apexcharts-tooltip-text-goals-label"></span><span
+                                                                            class="apexcharts-tooltip-text-goals-value"></span>
+                                                                    </div>
+                                                                    <div class="apexcharts-tooltip-z-group"><span
+                                                                            class="apexcharts-tooltip-text-z-label"></span><span
+                                                                            class="apexcharts-tooltip-text-z-value"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light">
+                                                            <div class="apexcharts-yaxistooltip-text"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="resize-triggers">
+                                                    <div class="expand-trigger">
+                                                        <div style="width: 66px; height: 41px;"></div>
+                                                    </div>
+                                                    <div class="contract-trigger"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="stats-tile">
+                                            <div class="sale-icon-bdr green">
+                                                <i class="bi bi-box-seam"></i>
+                                            </div>
+                                            <div class="sale-details">
+                                                <h5>Amount Made</h5>
+                                                <h3 class="text-green">{{ staff.total_earning }}</h3>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <div class="stats-tile">
+                                            <div class="sale-icon-bdr red">
+                                                <i class="bi bi-handbag"></i>
+                                            </div>
+                                            <div class="sale-details">
+                                                <h5>Expenses Made</h5>
+                                                <h3 class="text-red">{{ staff.total_expenses }}</h3>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-avatar-tile">
+                                {% if staff.profile_image %}
+                                    <img src="{{ staff.profile_image.url }}" class="img-fluid"
+                                         alt="{{ staff.name }}'s Profile Image"/>
+                                {% else %}
+                                    <img src="{% static 'assets/images/user.png' %}" class="img-fluid"
+                                         alt="{{ staff.name }}'s Profile Image"/>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Row end -->
+            <!--start Row-->
+            <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="row gutters">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                            <!-- Card start -->
+                            <div class="award-tile shade-light">
+                                <div class="award-icon">
+                                    <i class="bi bi-receipt text-blue"></i>
+                                </div>
+                                <h3 class="text-blue">{{ staff.pay_rate }}</h3>
+                                <h4 class="text-blue">Salary</h4>
+                            </div>
+                            <!-- Card end -->
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                            <!-- Card start -->
+                            <div class="award-tile shade-blue">
+                                <div class="award-icon">
+                                    <i class="bi bi-gem"></i>
+                                </div>
+                                <h3>10,000</h3>
+                                <h4>Bonus | Commission</h4>
+                            </div>
+                            <!-- Card end -->
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                            <!-- Card start -->
+                            <div class="award-tile shade-red">
+                                <div class="award-icon">
+                                    <i class="bi bi-emoji-angry"></i>
+                                </div>
+                                <h3>5,000</h3>
+                                <h4>Deductions</h4>
+                            </div>
+                            <!-- Card end -->
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                            <!-- Card start -->
+                            <div class="award-tile shade-green">
+                                <div class="award-icon">
+                                    <i class="bi bi-gem"></i>
+                                </div>
+                                <h3>35,000</h3>
+                                <h4>Total Earning</h4>
+                            </div>
+                            <!-- Card end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row start -->
+            <div class="row gutters">
+                <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                    <!-- Row start -->
+                    <div class="row gutters">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <!-- Card start -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Rider Info</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p>Fullname </p>
+                                        </div>
+                                        <p class="ml-auto">
+                                            {{ staff.name }}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p>Email Address </p>
+                                        </div>
+                                        <p class="ml-auto">
+                                            {{ staff.email }}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p>Phone Number </p>
+                                        </div>
+                                        <p class="ml-auto">
+                                            {{ staff.phone_number }}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p>Emergency Number</p>
+                                        </div>
+                                        <p class="ml-auto">
+                                            {{ staff.emergency_contact }}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p>Date of Birth </p>
+                                        </div>
+                                        <p class="ml-auto">
+                                            {{ staff.date_of_birth }}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p>State Of Origin </p>
+                                        </div>
+                                        <p class="ml-auto">
+                                            {{ staff.state_of_origin }}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex justify-content-between" style="border-bottom:2px solid #ddd">
+                                        <div>
+                                            <p>House Address </p>
+                                        </div>
+                                        <p class="ml-auto">
+                                            {{ staff.address }}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <div>
+                                            <p>Started On </p>
+                                        </div>
+                                        <p class="ml-auto">
+                                            {{ staff.start_date }}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex justify-content-between" style="border-bottom:2px solid #ddd">
+                                        <div>
+                                            <p>Status </p>
+                                        </div>
+                                        <p class="ml-auto">
+                                            <span class="badge rounded-pill shade-green">Active</span>
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- Card end -->
+                        </div>
+
+
+                    </div>
+                    <!-- Row end -->
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                    <!-- Row start -->
+                    <div class="row gutters">
+
+
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <!-- Card start -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Bank Detail</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="polls-container">
+
+                                        <div class="poll-block">
+                                            <div class="poll-block-header">
+                                                <div class="form-check">
+
+                                                    <label class="form-check-label" for="inlineRadio1">Account
+                                                        Name</label>
+                                                </div>
+                                                <div class="score" style="font-size:12px">Samuel Nnaji</div>
+                                            </div>
+
+                                        </div>
+                                        <div class="poll-block">
+                                            <div class="poll-block-header">
+                                                <div class="form-check">
+
+                                                    <label class="form-check-label" for="inlineRadio1">Bank Name</label>
+                                                </div>
+                                                <div class="score" style="font-size:12px">Access Bank</div>
+                                            </div>
+
+                                        </div>
+                                        <div class="poll-block">
+                                            <div class="poll-block-header">
+                                                <div class="form-check">
+
+                                                    <label class="form-check-label" for="inlineRadio1">Account
+                                                        Number</label>
+                                                </div>
+                                                <div class="score" style="font-size:12px">1234567890</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card end -->
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <!-- Card start -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Vehicle Information</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="polls-container">
+
+                                        <div class="poll-block">
+                                            <div class="poll-block-header">
+                                                <div class="form-check">
+
+                                                    <label class="form-check-label" for="inlineRadio1">Vehicle
+                                                        Type</label>
+                                                </div>
+                                                <div class="score" style="font-size:12px">{{ staff.vehicle_type }}</div>
+                                            </div>
+
+                                        </div>
+                                        <div class="poll-block">
+                                            <div class="poll-block-header">
+                                                <div class="form-check">
+
+                                                    <label class="form-check-label" for="inlineRadio1">Registration
+                                                        Number</label>
+                                                </div>
+                                                <div class="score"
+                                                     style="font-size:12px">{{ staff.vehicle_reg_number }}</div>
+                                            </div>
+
+                                        </div>
+                                        <div class="poll-block">
+                                            <div class="poll-block-header">
+                                                <div class="form-check">
+
+                                                    <label class="form-check-label" for="inlineRadio1">Insurance
+                                                        Status</label>
+                                                </div>
+                                                <div class="score" style="font-size:12px">Valid
+                                                    until {{ staff.insurance_details }}</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card end -->
+                        </div>
+                    </div>
+                    <!-- Row end -->
+
+                </div>
+            </div>
+            <!-- Row end -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <!-- Card start -->
+                    <div class="card h-320">
+                        <div class="card-header">
+                            <div class="card-title">Trip History</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table id="customerTable" class=" customerTable table v-middle">
+                                        <thead>
+                                        <tr>
+                                            <th>OrderID</th>
+                                            <th>From</th>
+                                            <th>To</th>
+                                            <th>Description</th>
+                                            <th>Prices</th>
+                                            <th>Order Type</th>
+                                            <th>Ordered Placed</th>
+                                            <th>Delivery Time</th>
+                                            <th>Order Status</th>
+                                            <th>Customer feedback</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for order in staff.order_set.all %}
+                                            <tr>
+                                                <td>
+                                                    <div class="media-box">
+
+                                                        <div class="media-box-body">
+                                                            <div class="text-truncate">{{ order.order_id }}</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="media-box">
+
+                                                        <div class="media-box-body">
+                                                            <div class="text-truncate">{{ order.from_location }}</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ order.to_location }}</td>
+                                                <td>{{ order.description }}</td>
+                                                <td>{{ order.amount }}</td>
+                                                <td>
+                                                    {{ order.order_type }}
+                                                </td>
+                                                <td>
+                                                    {{ order.order_date }}
+                                                </td>
+                                                <td>
+                                                    {{ order.order_completed }}
+                                                </td>
+                                                <td>
+                                                    <span class="badge shade-green min-90">{{ order.status }}</span>
+                                                </td>
+                                                <td>
+                                                    He really deliver it to my on time , thanks for your rider
+                                                </td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td>No orders Recieved</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- Card end -->
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <!-- Card start -->
+                    <div class="card h-320">
+                        <div class="card-header">
+                            <div class="card-title">Payment History</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table id="customerTable" class=" customerTable table v-middle">
+                                        <thead>
+                                        <tr>
+                                            <th>Date of Payment</th>
+                                            <th>Amount Paid (₦)</th>
+                                            <th>Base Pay (₦)</th>
+                                            <th>Bonuses/Incentives (₦)</th>
+                                            <th>Reimbursements (₦)</th>
+                                            <th>Deductions (₦)</th>
+                                            <th>Total Trips</th>
+                                            <th>Payment Method</th>
+                                            <th>Reference Number</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                2024-09-01
+                                            </td>
+                                            <td>
+                                                25,000
+                                            </td>
+                                            <td>20,000</td>
+                                            <td>3,000</td>
+                                            <td>2,500</td>
+                                            <td>
+                                                500
+                                            </td>
+                                            <td>
+                                                50
+                                            </td>
+                                            <td>
+                                                Bank Transfer
+                                            </td>
+                                            <td>
+                                                TXN12345
+                                            </td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- Card end -->
+                </div>
+
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="row gutters">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <!-- Card start -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Activity</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="scroll300 os-host os-theme-dark os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition">
+                                        <div class="os-resize-observer-host observed">
+                                            <div class="os-resize-observer" style="left: 0px; right: auto;"></div>
+                                        </div>
+                                        <div class="os-size-auto-observer observed"
+                                             style="height: calc(100% + 1px); float: left;">
+                                            <div class="os-resize-observer"></div>
+                                        </div>
+                                        <div class="os-content-glue" style="margin: 0px;"></div>
+                                        <div class="os-padding">
+                                            <div class="os-viewport os-viewport-native-scrollbars-invisible"
+                                                 style="overflow-y: scroll;">
+                                                <div class="os-content"
+                                                     style="padding: 0px; height: 100%; width: 100%;">
+                                                    <div class="timeline-activity">
+                                                        <div class="activity-log">
+                                                            <p class="log-name">Deduction<small class="log-time">-
+                                                                10/07/24</small></p>
+                                                            <div class="log-details">#5,000 has deducted from your
+                                                                account for using our bike without our notice
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="activity-log">
+                                                            <p class="log-name">Bonus<small class="log-time">-
+                                                                10/11/24</small></p>
+                                                            <div class="log-details">
+                                                                #2000, has been added to your account for reaching our
+                                                                weekly target
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden">
+                                                <div class="os-scrollbar-track os-scrollbar-track-off">
+                                                    <div class="os-scrollbar-handle"
+                                                         style="width: 100%; transform: translate(0px);"></div>
+                                                </div>
+                                            </div>
+                                            <div class="os-scrollbar os-scrollbar-vertical os-scrollbar-auto-hidden">
+                                                <div class="os-scrollbar-track os-scrollbar-track-off">
+                                                    <div class="os-scrollbar-handle"
+                                                         style="height: 58.9391%; transform: translate(0px);"></div>
+                                                </div>
+                                            </div>
+                                            <div class="os-scrollbar-corner"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card end -->
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <!-- Card start -->
+                            <div class="card h-320">
+                                <div class="card-header">
+                                    <div class="card-title">Rider Time Tracking</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-body">
+
+                                        <div class="table-responsive">
+                                            <table id="customerTable" class="  table v-middle">
+                                                <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Start on</th>
+                                                    <th>End On</th>
+                                                    <th>Trips Completed</th>
+                                                    <th>Total Hours Worked</th>
+
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        2024-09-01
+                                                    </td>
+                                                    <td>
+                                                        8:30am
+                                                    </td>
+                                                    <td>5:30</td>
+                                                    <td>10</td>
+                                                    <td>5 hours</td>
+
+
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <!-- Card end -->
+                        </div>
+
+                    </div>
+                </div>
+                <div class="fixed-bottom-bar d-flex ">
+                    <button class="btn btn-success" style="margin-right:20px">Confirm Salary</button>
+                    <button class="btn btn-primary viewRow" data-bs-toggle="modal" data-bs-target="#modalReason"
+                            style="margin-right:20px">Bonus/Incentives
+                    </button>
+
+                    <button class="btn btn-light viewRow" data-bs-toggle="modal" data-bs-target="#modaldeduct"
+                            style="margin-right:20px">Deduction
+                    </button>
+                    <button class="btn btn-warning" style="margin-right:20px">Edit Profile</button>
+                    <button class="btn btn-danger" style="margin-right:20px">Delete Profile</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- Content wrapper end -->
+        <!--bonuse modal-->
+        <div class="modal fade" id="modalReason" tabindex="-1" aria-labelledby="modalDarkLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalDarkLabel">Bonus/Incentives</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+
+                            <div class="card-body">
+                                <div class="m-0">
+                                    <label class="form-label">Amount</label>
+                                    <input type="text" class="form-control" placeholder="Enter Amount">
+                                    <div class="mt-2">
+                                        <label class="form-label">Reason for the bonus</label>
+                                        <input type="text" class="form-control"
+                                               placeholder="Enter Reason for the Bonus">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--end-->
+        <!--deduction modal-->
+        <div class="modal fade" id="modaldeduct" tabindex="-1" aria-labelledby="modalDarkLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalDarkLabel">Deduction</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+
+                            <div class="card-body">
+                                <div class="m-0">
+                                    <label class="form-label">Amount</label>
+                                    <input type="text" class="form-control" placeholder="Enter Amount">
+                                    <div class="mt-2">
+                                        <label class="form-label">Reason for the deduction</label>
+                                        <input type="text" class="form-control"
+                                               placeholder="Enter Reason for the deduction">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--end-->
+
+{% endblock %}

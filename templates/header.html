@@ -1,0 +1,219 @@
+{% load static %}
+<!-- Loading wrapper start -->
+<div id="loading-wrapper">
+    <div class="spinner">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+        <div class="line4"></div>
+        <div class="line5"></div>
+        <div class="line6"></div>
+    </div>
+</div>
+<!-- Loading wrapper end -->
+
+<!-- Page wrapper start -->
+<div class="page-wrapper">
+
+    <!-- Sidebar wrapper start -->
+    <nav class="sidebar-wrapper">
+
+        <!-- Sidebar brand starts -->
+        <div class="sidebar-brand">
+            <a href="{% url 'service:dashboard' %}" class="logo">
+                <img src="{% static 'assets/images/logo.svg' %}" alt="Arise Admin Dashboard"/>
+            </a>
+        </div>
+        <!-- Sidebar brand starts -->
+
+        <!-- Sidebar menu starts -->
+        <div class="sidebar-menu">
+            <div class="sidebarMenuScroll">
+                <ul>
+
+                    <li>
+                        <a href="{% url 'service:dashboard' %}">
+                            <i class="bi bi-house"></i>
+                            <span class="menu-text">Dashboards</span>
+                        </a>
+                    </li>
+
+
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="bi bi-handbag"></i>
+                            <span class="menu-text">Orders</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'service:order_list' %}">Order History</a>
+                                </li>
+
+                                <li>
+                                    <a href="{% url 'service:add_order' %}">Add Order</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="bi bi-gem"></i>
+                            <span class="menu-text">Expenses</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'service:expense-list' %}">Expenses History</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'service:expense_add' %}">Add Expenses</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="bi bi-people-fill"></i>
+                            <span class="menu-text">Customers</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'service:customer_list' %}">Customers</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'service:review_list' %}"> Customer Reviews</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="bi bi-calendar4"></i>
+                            <span class="menu-text">HRM</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'business:staff_list' %}">Staff</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'business:staff_create' %}"> Register Staff</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="bi bi-gear-fill"></i>
+                            <span class="menu-text">Settings</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'business:settings' %}">Business Settings</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'business:role_permission' %}"> Roles and Permission</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'business:user_management' %}">User Management</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'business:security_settings' %}">Security Settings</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul style="margin-top:40px">
+                    <li>
+                        <a href="{% url 'service:support' %}">
+                            <i class="bi bi-headphones"></i>
+                            <span class="menu-text">Support</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            <span class="menu-text">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Sidebar menu ends -->
+
+    </nav>
+    <!-- Sidebar wrapper end -->
+
+    <!-- *************
+        ************ Main container start *************
+    ************* -->
+    <div class="main-container">
+
+        <!-- Page header starts -->
+        <div class="page-header">
+
+            <div class="toggle-sidebar" id="toggle-sidebar"><i class="bi bi-list"></i></div>
+
+            <!-- Breadcrumb start -->
+            <ol class="breadcrumb d-md-flex d-none">
+                <li class="breadcrumb-item">
+                    <i class="bi bi-house"></i>
+                    <a href="{% url 'service:dashboard' %}">Home</a>
+                </li>
+                <li class="breadcrumb-item breadcrumb-active" aria-current="page">Dashboard</li>
+            </ol>
+            <!-- Breadcrumb end -->
+
+            <!-- Header actions container start -->
+            <div class="header-actions-container">
+                <!-- Filter  container start -->
+                <div class="card-body">
+                    <a href="{% url 'service:add_order' %}">
+
+                        <button type="button" class="btn btn-info"><i class="bi bi-plus-square"></i> Add New Order
+                        </button>
+                    </a>
+                    <a href="{% url 'service:expense_add' %}">
+                        <button type="button" class="btn btn-danger"><i class="bi bi-plus-square"></i> Add New Expense
+                        </button>
+                    </a>
+                </div>
+                <!-- Search container end -->
+                <a href="{% url 'service:review_list' %}" style="margin-left: 10px;">
+                    <button type="button" class="btn btn-light "><i class="bi bi-plus-square"></i> Add Review</button>
+                </a>
+
+                <!-- Header actions start -->
+                <ul class="header-actions">
+                    <li class="dropdown">
+                        <a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
+                            <span class="user-name d-none d-md-block">Samuel Nnaji</span>
+                            <span class="avatar">
+										<img src="{% static 'assets/images/user.png' %}" alt="User Avatar">
+										<span class="status online"></span>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userSettings">
+                            <div class="header-profile-actions">
+                                <a href="profile.html">Profile</a>
+                                <a href="account-settings.html">Settings</a>
+                                <a href="{% url 'logout' %}">Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- Header actions end -->
+
+            </div>
+            <!-- Header actions ccontainer end -->
+
+        </div>

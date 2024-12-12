@@ -1,0 +1,21 @@
+<!-- templates/add_order.html -->
+{% extends 'base.html' %}
+
+{% block title %}Order Success{% endblock %}
+
+{% block content %}
+    <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row">
+            <!-- order_success.html -->
+            <div class="alert alert-success">
+                Your order has been successfully added!
+            </div>
+            <a href="{% url 'service:order_list' %}" class="btn btn-primary">Back to Dashboard</a>
+        </div>
+        <!-- Row end -->
+
+    </div>
+
+{% endblock %}
+
