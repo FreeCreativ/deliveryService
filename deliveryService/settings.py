@@ -9,12 +9,14 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+import os
 from pathlib import Path
 
-import pymysql
-from decouple import config
+from dotenv import load_dotenv
 
-pymysql.install_as_MySQLdb()
+# Load environment variables from .env file
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -103,46 +105,26 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = 'service:dashboard'
 LOGOUT_REDIRECT_URL = '/login/'
+# Access environment variables using os.environ
 
-if config('ENV') == "prod":
-    ALLOWED_HOSTS = ['tochi-project.com', 'www.tochi-project.com']
-    SECRET_KEY = config("SECRET_KEY")
-    DEBUG = False
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': config('DB_NAME'),
-            'USER': config('DB_USER'),
-            'PASSWORD': config('DB_PASSWORD'),
-            'HOST': config('DB_HOST', default='localhost'),
-            'PORT': config('DB_PORT', default='3306'),
-        }
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+ALLOWED_HOSTS = []
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-ka$^k(#uko@qsfk7k9r2$8_c8l*735h&0dw4@ecrs9+q5$%-sa'
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+# Database
+# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-    STATIC_URL = 'www.tochi-project.com/static/'
-    STATICFILES_DIRS = [BASE_DIR / 'static']
-    STATIC_ROOT = '/home/tochi-project/public_html/static/'
-    MEDIA_URL = 'www.tochi-project.com/media/'
-    MEDIA_ROOT = '/home/tochi-project/public_html/media/'
-elif config('ENV') == "dev":
-    ALLOWED_HOSTS = []
-    # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = 'django-insecure-ka$^k(#uko@qsfk7k9r2$8_c8l*735h&0dw4@ecrs9+q5$%-sa'
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
-    # Database
-    # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-    # Static files (CSS, JavaScript, Images)
-    # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-    STATIC_URL = 'static/'
-    STATICFILES_DIRS = [BASE_DIR / 'static']
-    STATIC_ROOT = BASE_DIR / 'staticfiles'
-    MEDIA_URL = 'media/'
-    MEDIA_ROOT = BASE_DIR / 'media'
+}
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
